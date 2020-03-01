@@ -21,7 +21,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <span style="font-size: 13px;color: #889999">管理员</span>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
@@ -143,14 +143,14 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        margin-top: 8px;
         position: relative;
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          width: 36px;
+          height: 36px;
+          border-radius: 18px;
         }
 
         .el-icon-caret-bottom {
