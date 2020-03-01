@@ -6,13 +6,13 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <search id="header-search" class="right-menu-item" />
+        <search id="header-search" class="right-menu-item right-menu-item-onland" />
 
-        <error-log class="errLog-container right-menu-item hover-effect" />
+        <error-log class="errLog-container right-menu-item right-menu-item-onland hover-effect" />
 
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <screenfull id="screenfull" class="right-menu-item right-menu-item-onland hover-effect" />
 
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
+        <el-tooltip content="Global Size" class="right-menu-item-onland" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
 
@@ -21,7 +21,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <span style="font-size: 13px;color: #889999">管理员</span>
+          <span class="user-name">管理员</span>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
@@ -139,6 +139,10 @@ export default {
       }
     }
 
+    .right-menu-item-onland {
+      padding: 8px 8px 10px 10px;
+    }
+
     .avatar-container {
       margin-right: 30px;
 
@@ -151,6 +155,11 @@ export default {
           width: 36px;
           height: 36px;
           border-radius: 18px;
+        }
+
+        .user-name {
+          font-size: 13px;
+          color: #889999
         }
 
         .el-icon-caret-bottom {
