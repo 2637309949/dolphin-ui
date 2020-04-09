@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import cas from '@/api/cas'
+import * as cas from '@/api/cas'
 
 const TokenKey = 'access_token'
 
