@@ -53,6 +53,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+import { logoutUrl } from '@/utils/auth' // get token from cookie
 
 export default {
   components: {
@@ -76,7 +77,8 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      logoutUrl(this.$route.fullPath, { $router: this.$router })
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }
@@ -147,7 +149,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 10px;
+        margin-top: 8px;
         position: relative;
 
         .user-avatar {

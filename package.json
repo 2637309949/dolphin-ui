@@ -1,8 +1,8 @@
 {
-  "name": "vue-element-admin",
-  "version": "4.2.1",
-  "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "name": "dolphin-ui",
+  "version": "1.0.0",
+  "description": "Dolphin ui for dolphin framework",
+  "author": "Double <2637309949@qq.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve --port 8081",
@@ -37,10 +37,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
+    "url": "git+https://github.com/2637309949/dolphin-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+    "url": "https://github.com/2637309949/dolphin-ui/issues"
   },
   "dependencies": {
     "axios": "0.18.1",
