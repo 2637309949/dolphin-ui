@@ -29,7 +29,7 @@ export function loginUrl(redirect, { state = '', $router, next } = {}) {
 
 export function logoutUrl(redirect, { state = '', $router, next } = {}) {
   if (window.Domain.auth_mode === 1) {
-    cas.logouts(redirect, state)
+    cas.logout(redirect, state)
   } else {
     if (next) {
       next(`/logout?redirect=${redirect}&state=${state}`)
