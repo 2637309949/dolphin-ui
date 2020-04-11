@@ -82,7 +82,14 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
-  },
+  }
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
   {
     path: '/documentation',
     component: Layout,
@@ -121,14 +128,7 @@ export const constantRoutes = [
         meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
-  }
-]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-export const asyncRoutes = [
+  },
   {
     path: '/permission',
     component: Layout,
@@ -170,7 +170,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/icon',
     component: Layout,
@@ -183,13 +182,10 @@ export const asyncRoutes = [
       }
     ]
   },
-
-  /** when your routing map is too long, you can split it into small modules **/
   componentsRouter,
   chartsRouter,
   nestedRouter,
   tableRouter,
-
   {
     path: '/example',
     component: Layout,
@@ -221,7 +217,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/tab',
     component: Layout,
@@ -234,7 +229,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/error',
     component: Layout,
@@ -259,7 +253,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/error-log',
     component: Layout,
@@ -272,7 +265,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/excel',
     component: Layout,
@@ -309,7 +301,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/zip',
     component: Layout,
@@ -326,7 +317,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/pdf',
     component: Layout,
@@ -345,7 +335,6 @@ export const asyncRoutes = [
     component: () => import('@/views/pdf/download'),
     hidden: true
   },
-
   {
     path: '/theme',
     component: Layout,
@@ -358,7 +347,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/clipboard',
     component: Layout,
@@ -371,7 +359,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: 'external-link',
     component: Layout,
@@ -382,7 +369,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
