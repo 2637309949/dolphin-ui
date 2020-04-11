@@ -51,33 +51,19 @@ const mutations = {
 function buildRouters(accessedRoutes) {
   return (accessedRoutes || []).map(item => {
     const routerItem = {}
-    if (!item.parent) {
-      routerItem.component = Layout
-      if (!item.component) {
-        routerItem.path = item.tag.url
-        routerItem.path = path.join('/', routerItem.path)
-      } else {
-        routerItem.path = '/'
-        routerItem.children = [{
-          path: item.tag.url,
-          name: item.tag.code,
-          hidden: item.tag.hidden || false,
-          component: () => require(`@/views/${item.tag.component}`).default,
-          meta: { title: item.tag.name, icon: item.tag.icon }
-        }]
-      }
-    } else {
-      routerItem.path = item.tag.url
-      routerItem.component = item.tag.component ? () => require(`@/views/${item.tag.component}`).default : Layout
-    }
     routerItem.name = item.tag.code
-    routerItem.meta = { 'title': item.tag.name, 'icon': item.tag.icon }
-    if (item.tag.active_menu) {
-      routerItem.meta.activeMenu = item.tag.active_menu
-    }
+    routerItem.path = !item.parent && !item.nodes ? path.join('/', item.tag.url) : path.join(!item.parent ? '/' : '', item.tag.url)
+    routerItem.component = !item.parent ? Layout : () => import(`@/views/${item.tag.component}`)
+    routerItem.meta = { 'title': item.tag.name, 'icon': item.tag.icon, 'activeMenu': item.tag.active_menu }
     routerItem.hidden = item.tag.hidden || false
     routerItem.alwaysShow = false
-    routerItem.children = buildRouters(item.nodes)
+    routerItem.children = !item.parent && !item.nodes ? [{
+      path: 'index',
+      name: item.tag.code,
+      hidden: item.tag.hidden || false,
+      component: () => import(`@/views/${item.tag.component}`),
+      meta: { title: item.tag.name, icon: item.tag.icon }
+    }] : buildRouters(item.nodes)
     return routerItem
   })
 }
@@ -86,8 +72,9 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       return api.sysMenu.sidebar().then(res => {
-        let { data: accessedRoutes } = res
-        accessedRoutes = buildRouters(accessedRoutes)
+        const { data: menuTree } = res
+        const accessedRoutes = buildRouters(menuTree)
+        console.log('----', accessedRoutes)
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
       })
