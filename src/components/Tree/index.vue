@@ -6,10 +6,10 @@
       </el-header>
       <el-main class="tree-main" style="padding: 15px 0;">
         <el-tree
-          :data="treeData"
+          :data="data"
           node-key="id"
-          :props="defaultProps"
-          :default-expanded-keys="defaultExpends"
+          :props="props"
+          :default-expanded-keys="expends"
           :style="styleObject"
           :highlight-current="false"
           @node-click="click"
@@ -25,13 +25,13 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: 'Menu'
     },
-    api: {
+    fetch: {
       type: Function,
       default: () => {}
     },
-    dataQuery: {
+    query: {
       type: Object,
       default: () => {}
     },
@@ -43,43 +43,32 @@ export default {
       type: Function,
       default: () => {}
     },
-    isShowAll: {
-      type: Boolean,
-      default: () => true
-    },
     styleObject: {
       type: Object,
       default: () => {}
     },
-    defaultExpends: {
+    expends: {
       type: Array,
       default: () => []
     },
     props: {
       type: Object,
-      default: () => {}
+      default: () => ({
+        children: 'nodes',
+        label: 'name',
+        value: 'id'
+      })
     }
   },
   data: function() {
     return {
-      treeData: [],
-      defaultProps: {
-        children: 'nodes',
-        label: 'name',
-        value: 'id'
-      }
+      data: []
     }
   },
   created() {
-    if (typeof this.props === 'object') {
-      Object.assign(this.defaultProps, this.props)
-    }
-    this.api(this.dataQuery).then(res => {
-      this.treeData = addNodesAttr(res.data || [], 'opened', false) || []
-      if (this.isShowAll) {
-        this.treeData.unshift({ id: '', nodes: null, opened: false, parent: '', tag: { id: '' }, text: 'All' })
-      }
-      this.callBack(res.data)
+    this.fetch(this.query).then(({ data }) => {
+      this.data = addNodesAttr(data, 'opened', false) || []
+      this.callBack(data)
     })
   }
 }

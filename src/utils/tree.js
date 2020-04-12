@@ -1,9 +1,7 @@
 export function addNodesAttr(nodes, attr, val) {
-  nodes.forEach((item, i) => {
-    nodes[i][attr] = val
-    if (nodes[i].nodes !== null && nodes[i].nodes.length > 0) {
-      addNodesAttr(nodes[i].nodes, attr, val)
-    }
+  return nodes.map(item => {
+    item[attr] = val
+    item.nodes = addNodesAttr(item.nodes || [], attr, val)
+    return item
   })
-  return nodes
 }
