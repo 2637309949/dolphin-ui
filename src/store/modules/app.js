@@ -6,10 +6,16 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'medium'
+  size: Cookies.get('size') || 'medium',
+  treeWidth: '18%',
+  minMainHeight: window.screen.height - 465,
+  pageTableHeaderHeight: 0
 }
 
 const mutations = {
+  PAGE_TABLE_HEADER_HEIGHT: (state, height) => {
+    state.pageTableHeaderHeight = height
+  },
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
@@ -34,6 +40,9 @@ const mutations = {
 }
 
 const actions = {
+  pageTableHeaderHeight({ commit }, { height }) {
+    commit('PAGE_TABLE_HEADER_HEIGHT', height)
+  },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
   },

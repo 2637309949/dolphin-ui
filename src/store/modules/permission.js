@@ -51,7 +51,7 @@ const mutations = {
 function buildRouters(accessedRoutes) {
   return (accessedRoutes || []).map(item => {
     const routerItem = {}
-    routerItem.name = item.tag.code
+    routerItem.name = !item.parent && !item.nodes ? null : item.tag.code
     routerItem.path = !item.parent && !item.nodes ? path.join('/', item.tag.url) : path.join(!item.parent ? '/' : '', item.tag.url)
     routerItem.component = !item.parent ? Layout : () => import(`@/views/${item.tag.component}`)
     routerItem.meta = { 'title': item.tag.name, 'icon': item.tag.icon, 'activeMenu': item.tag.active_menu }
