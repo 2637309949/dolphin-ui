@@ -74,7 +74,6 @@ const actions = {
       return api.sysMenu.sidebar().then(res => {
         const { data: menuTree } = res
         const accessedRoutes = buildRouters(menuTree)
-        console.log('----', accessedRoutes)
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
       })
