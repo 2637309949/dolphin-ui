@@ -8,10 +8,10 @@
           </el-aside>
           <el-container>
             <el-header height="120">
-              <el-form ref="searchForm" :size="size" label-position="left" label-width="80px">
+              <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
                 <el-row :gutter="20">
                   <el-col :span="6">
-                    <el-form-item label="Name:" class="notice-input" label-width="60px">
+                    <el-form-item label="Name:" class="notice-input" label-width="60px" prop="name">
                       <el-input
                         v-model="dataQuery.name"
                         placeholder="Please input name"
@@ -21,7 +21,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="Code:" class="notice-input" label-width="60px">
+                    <el-form-item label="Code:" class="notice-input" label-width="60px" prop="code">
                       <el-input
                         v-model="dataQuery.code"
                         placeholder="Please input code"
@@ -104,8 +104,8 @@
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
-        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">确 定
+        <el-button :size="size" @click="dialogVisible = false">Cancel</el-button>
+        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">Confirm
         </el-button>
       </footer>
     </el-dialog>
@@ -187,9 +187,7 @@ export default {
         page: 1,
         rows: 10,
         name: '',
-        code: '',
-        cn_id: '',
-        type: '0'
+        code: ''
       },
       nodeQuery: {
       },
@@ -250,14 +248,107 @@ export default {
     },
     getTreeDataCallBack(tree) {},
     handleChange(value) {},
-    createData() {},
-    updateData() {},
-    search() {},
-    resetFields() {},
-    deleteData(row) {},
-    deleteBatch() {},
+    createData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          this.$api.sysMenu.add(this.temp).then(res => {
+            this.dialogVisible = false
+            if (res.code === 200) {
+              this.$message({
+                message: 'Created successfully',
+                type: 'success'
+              })
+              this.$refs.qtable.getData()
+            } else {
+              this.$message({
+                message: 'Failed to create',
+                type: 'error'
+              })
+            }
+          })
+        }
+      })
+    },
+    updateData() {
+      this.$refs['dataForm'].validate(valid => {
+        if (valid) {
+          const postData = Object.assign({}, this.temp)
+          this.$api.sysMenu.update(postData).then(res => {
+            this.dialogVisible = false
+            if (res.code === 200) {
+              this.$message({
+                message: 'modify successfully',
+                type: 'success'
+              })
+              this.$refs.qtable.getData()
+            } else {
+              this.$message({
+                message: 'change failed',
+                type: 'error'
+              })
+            }
+          })
+        }
+      })
+    },
+    search() {
+      this.$refs.qtable.getData()
+    },
+    resetFields() {
+      this.$refs['searchForm'].resetFields()
+    },
+    deleteData(row) {
+      this.$confirm('Are you sure you want to delete this user ?', 'Prompt', {
+        type: 'warning'
+      }).then(() => {
+        this.$api.sysMenu.del({ id: row.id }).then(res => {
+          if (res.code === 200) {
+            this.$message({
+              message: 'successfully deleted',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
+          } else {
+            this.$message({
+              message: 'failed to delete',
+              type: 'error'
+            })
+          }
+        })
+      })
+    },
+    deleteBatch() {
+      const ids = []
+      this.$refs.qtable.selectionData.forEach(row => {
+        ids.push({ id: row.id })
+      })
+      this.$confirm('Are you sure to delete selected data in batch ?', 'Prompt', {
+        type: 'warning'
+      }).then(() => {
+        this.$api.sysMenu.batchDel(ids).then(res => {
+          if (res.code === 200) {
+            this.$refs.qtable.getData()
+            this.$message({
+              message: 'successfully deleted',
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: 'failed to delete',
+              type: 'error'
+            })
+          }
+        })
+      })
+    },
     dialogClose() {},
-    create() {},
+    create() {
+      this.dialogStatus = 'create'
+      this.dialogVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
     edit(row) {
       this.dialogStatus = 'update'
       this.dialogVisible = true
