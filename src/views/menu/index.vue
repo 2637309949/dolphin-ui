@@ -77,8 +77,8 @@
         <el-form-item label="Com:" prop="component">
           <el-input v-model="temp.component" placeholder="Please input component" />
         </el-form-item>
-        <el-form-item label="Order:" prop="order_num">
-          <el-input v-model.number="temp.order_num" placeholder="Please input order" />
+        <el-form-item label="Order:" prop="order">
+          <el-input v-model.number="temp.order" placeholder="Please input order" />
         </el-form-item>
         <el-form-item label="Icon:" prop="icon">
           <el-input v-model="temp.icon" placeholder="Please input icon" />
@@ -154,7 +154,7 @@ export default {
           maxWidth: 180
         },
         {
-          prop: 'order_num',
+          prop: 'order',
           label: 'Order',
           align: 'center',
           minWidth: 150,
@@ -200,7 +200,7 @@ export default {
         parent: this.parent,
         inheritance: '',
         icon: '',
-        order_num: 0,
+        order: 0,
         perms: '',
         type: '',
         hidden: 0
@@ -243,7 +243,7 @@ export default {
   created() {},
   methods: {
     nodeClick(node) {
-      this.dataQuery.cn_id = node.id
+      this.dataQuery.parent = node.id
       this.$refs.qtable.getData()
     },
     getTreeDataCallBack(tree) {},
