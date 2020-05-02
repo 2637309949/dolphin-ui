@@ -213,8 +213,9 @@ export default {
       cascaderData: [],
       defaultProps: {
         children: 'nodes',
-        label: 'text',
-        value: 'id'
+        label: 'name',
+        value: 'id',
+        key: 'id'
       },
       dataLoading: false,
       dialogStatus: '',
