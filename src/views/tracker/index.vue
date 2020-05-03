@@ -56,78 +56,24 @@
       </el-card>
     </el-main>
 
-    <el-dialog
-      :title="dialogStatus==='create'?'新建':'编辑'"
-      :visible.sync="dialogVisible"
-      width="40%"
-      @close="dialogClose"
-    >
-      <el-form ref="temp" :size="size" :rules="rules" :model="temp" label-width="120px">
-        <el-form-item label="名称:" prop="name">
-          <el-input v-model="temp.name" :size="size" placeholder="请输入名称" />
+    <el-dialog title="详情" :visible.sync="dialogVisible" width="70%">
+      <el-form ref="form" label-width="80px">
+        <el-form-item label="ip地址:" class="notice-input" label-width="80px">
+          <el-input v-model="temp.client_ip" />
         </el-form-item>
-        <el-form-item label="编码:" prop="code">
-          <el-input v-model="temp.code" :size="size" placeholder="请输入编码" />
+        <el-form-item label="请求头:" class="notice-input" label-width="80px">
+          <el-input v-model="temp.header" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
-        <el-form-item label="备注:" prop="remark">
-          <el-input v-model="temp.remark" :size="size" placeholder="请输入备注" />
+        <el-form-item label="请求地址:" class="notice-input" label-width="80px">
+          <el-input v-model="temp.path" />
         </el-form-item>
-        <el-form-item
-          label="键值对:"
-          label-position="right"
-          label-width="120px"
-          class="notice-input"
-          prop="maps"
-        >
-          <div
-            v-for="(item, index) in maps"
-            :key="index"
-            style="width: 100%; float: left; margin-bottom: 5px;"
-            type="flex"
-          >
-            <div style="width: 15%; float: left">
-              <el-input v-model="item.value" placeholder="value" />
-            </div>
-            <div style="width: 35%; float: left;">
-              <el-input
-                v-model="item.text"
-                type="textarea"
-                :rows="2"
-                placeholder="text"
-                clearable
-                style="border-left: 0px;margin-left: 11px;"
-              />
-            </div>
-            <div style="width: 35%; float: left;margin-left:20px">
-              <el-input
-                v-model="item.label"
-                type="textarea"
-                :rows="2"
-                placeholder="请输入说明文字"
-                clearable
-                style="border-left: 0px;margin-left: 11px;"
-              />
-            </div>
-            <div style="width: 5%; float: left;padding-left: 23px; ">
-              <el-button
-                icon="el-icon-minus"
-                circle
-                :size="size"
-                style="padding: 5px;"
-                @click="delItem(index)"
-              />
-            </div>
-          </div>
+        <el-form-item label="请求内容:" class="notice-input" label-width="80px">
+          <el-input v-model="temp.req_body" />
+        </el-form-item>
+        <el-form-item label="返回内容:" class="notice-input" label-width="80px">
+          <el-input v-model="temp.res_body" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
       </el-form>
-      <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
-        <el-button
-          :size="size"
-          type="primary"
-          @click="dialogStatus==='create'?createData():updateData()"
-        >确 定</el-button>
-      </footer>
     </el-dialog>
   </el-container>
 </template>
@@ -191,7 +137,7 @@ export default {
             show: true,
             type: 'primary',
             method: row => {
-              this.edit(row)
+              this.detail(row)
             }
           }
         ],
@@ -208,10 +154,16 @@ export default {
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }]
       },
       temp: {
-        id: undefined,
-        name: '',
-        code: '',
-        value: ''
+        user_name: '',
+        status_code: '',
+        latency: '',
+        client_ip: '',
+        method: '',
+        path: '',
+        create_time: '',
+        header: '',
+        req_body: '',
+        res_body: ''
       },
       dataLoading: false,
       dialogStatus: '',
@@ -239,11 +191,14 @@ export default {
       this.$refs['temp'].resetFields()
       this.maps = [{ value: '', text: '' }]
     },
-    create() {
-      this.dialogStatus = 'create'
-      this.dialogVisible = true
-      this.$nextTick(() => {
-        this.$refs['temp'].clearValidate()
+    detail(row) {
+      this.temp = Object.assign({}, row)
+      this.$api.sysTracker.get({ id: row.id }).then(res => {
+        const { data: { header, res_body, req_body }} = res
+        this.temp.header = header && atob(header)
+        this.temp.res_body = res_body && atob(res_body)
+        this.temp.req_body = req_body && atob(req_body)
+        this.dialogVisible = true
       })
     }
   }
