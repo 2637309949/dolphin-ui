@@ -4,7 +4,7 @@
       <el-card>
         <el-container>
           <el-aside class="tree-aside" :width="treeWidth">
-            <tree title="组织架构" :fetch="this.$api.sysOrg.tree" :data-query="treeQuery" :call-back="getTreeDataCallBack" :click="treeClick" />
+            <tree title="Org" :fetch="this.$api.sysOrg.tree" :data-query="treeQuery" :call-back="getTreeDataCallBack" :click="treeClick" />
           </el-aside>
           <el-container>
             <el-header height="82">
@@ -17,19 +17,19 @@
               >
                 <el-row :gutter="20">
                   <el-col :span="6">
-                    <el-form-item label="账号:" prop="login_id" class="notice-input" label-width="60px">
-                      <el-input v-model="dataQuery.login_id" placeholder="请输入帐号" clearable @keyup.enter.native="search" />
+                    <el-form-item label="Mobile:" prop="mobile" class="notice-input" label-width="60px">
+                      <el-input v-model="dataQuery.login_id" placeholder="Please enter your account" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="名称:" prop="name" class="notice-input" label-width="60px">
-                      <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
+                    <el-form-item label="Name:" prop="name" class="notice-input" label-width="60px">
+                      <el-input v-model="dataQuery.name" placeholder="Please enter the name" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="12" style="text-align: right">
                     <el-form-item>
-                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">查询</el-button>
-                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">重置</el-button>
+                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
+                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -39,7 +39,7 @@
                     icon="el-icon-plus"
                     :size="size"
                     @click="create"
-                  >新建
+                  >New
                   </el-button>
                   <el-button
                     v-if="checkPermission(['update_password'])"
@@ -47,9 +47,9 @@
                     icon="el-icon-edit"
                     :size="size"
                     @click="updatePassword"
-                  >修改密码
+                  >Change password
                   </el-button>
-                  <el-button :size="size" @click="deleteBatch">批量删除</el-button>
+                  <el-button :size="size" @click="deleteBatch">Bulk Delete</el-button>
                 </el-row>
               </el-form>
             </el-header>
@@ -71,7 +71,7 @@
     </el-main>
 
     <el-dialog
-      :title="dialogStatus==='create'?'新建用户':'编辑用户'"
+      :title="dialogStatus==='create'?'New users':'Edit users'"
       :visible.sync="dialogVisible"
       width="50%"
       @close="dialogClose"
@@ -83,17 +83,17 @@
         :model="temp"
         label-width="85px"
       >
-        <el-form-item label="账号:" prop="login_id">
-          <el-input v-model="temp.login_id" placeholder="请输入账号" />
+        <el-form-item label="Name:" prop="name">
+          <el-input v-model="temp.name" placeholder="Please enter the username" />
         </el-form-item>
-        <el-form-item label="用户名:" prop="name">
-          <el-input v-model="temp.name" placeholder="请输入用户名" />
+        <el-form-item label="NickName:" prop="nickname">
+          <el-input v-model="temp.login_id" placeholder="Please enter the nickname" />
         </el-form-item>
-        <el-form-item v-if="dialogStatus === 'create'" label="密码:" prop="password">
-          <el-input v-model="temp.password" placeholder="请输入密码" />
+        <el-form-item v-if="dialogStatus === 'create'" label="Pwd:" prop="password">
+          <el-input v-model="temp.password" placeholder=" Please enter your password" />
         </el-form-item>
-        <el-form-item label="机构:">
-          <el-select v-model="temp.org_id" style="width: 100%" placeholder="请选择机构">
+        <el-form-item label="Org:">
+          <el-select v-model="temp.org_id" style="width: 100%" placeholder=" Please select the org">
             <el-option
               v-for="item in orgs"
               :key="item.id"
@@ -102,24 +102,19 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="邮箱:" prop="email">
-          <el-input v-model="temp.email" placeholder="请输入邮箱" />
+        <el-form-item label="Email:" prop="email">
+          <el-input v-model="temp.email" placeholder="Please enter the mailbox" />
         </el-form-item>
-        <el-form-item label="手机:" prop="mobile">
-          <el-input v-model="temp.mobile" placeholder="请输入手机" />
+        <el-form-item label="Mobile:" prop="mobile">
+          <el-input v-model="temp.mobile" placeholder="Please enter your phone" />
         </el-form-item>
-        <el-form-item v-if="dialogStatus=='update'" label="角色:" prop="type">
-          <el-select v-model="temp.user_role" style="width: 100%" multiple placeholder="请选择角色">
-            <el-option
-              v-for="item in options"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+        <el-form-item v-if="dialogStatus=='update'" label="Role:" prop="type">
+          <el-select v-model="temp.user_role" style="width: 100%" multiple placeholder="Please select the role">
+            <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="信息模板:" prop="temp_id">
-          <el-select v-model="temp.temp_id" style="width: 100%" placeholder="请选择模板" @change="tempChange">
+        <el-form-item label="Template:" prop="temp_id">
+          <el-select v-model="temp.temp_id" style="width: 100%" placeholder="Please select the template" @change="tempChange">
             <el-option
               v-for="item in templs"
               :key="item.id"
@@ -136,8 +131,8 @@
           class="notice-input"
           :prop="item.id"
         >
-          <el-input v-if="item.type == 0" v-model.number="temp_items[i].value" placeholder="请输入" clearable />
-          <el-input v-if="item.type == 2" v-model="temp_items[i].value" placeholder="请输入" clearable />
+          <el-input v-if="item.type == 0" v-model.number="temp_items[i].value" placeholder="Please ente" clearable />
+          <el-input v-if="item.type == 2" v-model="temp_items[i].value" placeholder="Please ente" clearable />
           <!--<template v-if="item.type == 3">-->
           <!--<el-table :data="temp_items[i].value" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">-->
           <!--<el-table-column v-for="col of JSON.parse(temp_items[i].content)" :prop="col.prop" :label="col.label" :width="col.width">-->
@@ -161,27 +156,24 @@
         </el-button>
       </footer>
     </el-dialog>
-
-    <!--修改密码-->
-    <el-dialog title="修改密码" :visible.sync="updatePswDialog" width="30%">
+    <el-dialog title="Change password" :visible.sync="updatePswDialog" width="30%">
       <el-form ref="updatePswForm" :size="size" :rules="rules" :model="temp" label-width="85px">
-        <el-form-item label="账号:" prop="login_id">
-          <el-input v-model="temp.login_id" placeholder="请输入账号" />
+        <el-form-item label="Mobile:" prop="mobile">
+          <el-input v-model="temp.login_id" placeholder="Please enter the mobile" />
         </el-form-item>
-        <el-form-item label="用户名:" prop="name">
-          <el-input v-model="temp.name" placeholder="请输入用户名" />
+        <el-form-item label="Name:" prop="name">
+          <el-input v-model="temp.name" placeholder="Please enter the username" />
         </el-form-item>
-        <el-form-item label="密码:" prop="password">
-          <el-input v-model="temp.password" placeholder="请输入密码" />
+        <el-form-item label="Pwd:" prop="password">
+          <el-input v-model="temp.password" placeholder="Please enter the passowrd" />
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="updatePswDialog = false">取 消</el-button>
-        <el-button :size="size" type="primary" @click="updatePws">确 定
+        <el-button :size="size" @click="updatePswDialog = false">Cancel</el-button>
+        <el-button :size="size" type="primary" @click="updatePws">confirm
         </el-button>
       </footer>
     </el-dialog>
-
   </el-container>
 </template>
 
@@ -201,17 +193,17 @@ export default {
   data() {
     return {
       tableColumns: [
-        { prop: 'login_id', label: '账号', align: 'center', minWidth: 180, maxWidth: 220 },
-        { prop: 'name', label: '名称', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'org_name', label: '机构', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'role_name', label: '角色', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'email', label: '邮箱', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'mobile', label: '手机', align: 'center', minWidth: 150, maxWidth: 180 }
+        { prop: 'name', label: 'Name', align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'email', label: 'Email', align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'mobile', label: 'Mobile', align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'org_name', label: 'Org', align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'role_name', label: 'Role', align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'status', label: 'Status', align: 'center', minWidth: 150, maxWidth: 180 }
       ],
       operates: {
         list: [
-          { label: '编辑', show: true, type: 'text', method: (row) => { this.edit(row) } },
-          { label: '删除', show: true, type: 'text', method: (row) => { this.deleteData(row) } }
+          { label: 'Edit', show: true, type: 'text', method: (row) => { this.edit(row) } },
+          { label: 'Del', show: true, type: 'text', method: (row) => { this.deleteData(row) } }
         ],
         width: 100,
         fixed: 'right'
@@ -308,7 +300,7 @@ export default {
     },
     getTempDetail(temp_id) {
       this.$api.sysUserTemplate.page({ page: 1, rows: 100, 'temp_id': temp_id }).then(res => {
-        this.temp_items = res.data.content
+        this.temp_items = res.data.data
         var tempValue
         if (this.temp.temp_value !== '' && this.temp.temp_value !== undefined) {
           tempValue = JSON.parse(this.temp.temp_value)
@@ -344,29 +336,14 @@ export default {
       })
     },
     getOrgs() {
-      const pageData = { 'page': 1, 'rows': 100 }
-      this.$api.sysOrg.page(pageData).then(res => {
-        if (res.code === 200) {
-          this.orgs = res.data.content
-        } else {
-          this.$message({
-            message: '失败',
-            type: 'fail'
-          })
-        }
+      this.$api.sysOrg.page({ 'page': 1, 'rows': 100 }).then(res => {
+        this.orgs = res.data.data
       })
     },
     getRoles() {
       const pageData = { 'page': 1, 'rows': 100 }
       this.$api.sysRole.page(pageData).then(res => {
-        if (res.code === 200) {
-          this.options = res.data.content
-        } else {
-          this.$message({
-            message: '失败',
-            type: 'fail'
-          })
-        }
+        this.options = res.data.data
       })
     },
     treeClick(node) {
