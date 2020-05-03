@@ -14,7 +14,6 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -43,17 +42,16 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    const res = response.data
-
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 200) {
-      if (res.code !== 401) {
+    const { msg, code = 'Error' } = response.data
+    if (code !== 200) {
+      if (code !== 401) {
         Message({
-          message: res.msg || 'Error',
+          message: msg,
           type: 'error',
           duration: 5 * 1000
         })
-      } else if (res.code === 401) {
+      } else if (code === 401) {
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
@@ -64,9 +62,9 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject(new Error(res.msg || 'Error'))
+      return Promise.reject(new Error(msg))
     }
-    return res
+    return response.data
   },
   error => {
     console.log(error)
