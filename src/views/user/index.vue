@@ -187,7 +187,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { copyObject } from '@/utils/index'
+import { deepClone } from '@/utils/index'
 import checkPermission from '@/utils/permission'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
@@ -254,7 +254,7 @@ export default {
   },
   computed: {
     inheritanceArray() {
-      if (this.temp.inheritance === '' || this.temp.inheritance === undefined) {
+      if (!this.temp.inheritance) {
         return []
       }
       let array = this.temp.inheritance.split('|').reverse()
@@ -307,9 +307,8 @@ export default {
       this.temp_items[dataIndex].value.push(obj)
     },
     getTempDetail(temp_id) {
-      this.$api.system.FindUserTemplateDetailPage({ page: 1, rows: 100, 'temp_id': temp_id }).then(res => {
+      this.$api.sysUserTemplate.page({ page: 1, rows: 100, 'temp_id': temp_id }).then(res => {
         this.temp_items = res.data.content
-        // temp_value回填
         var tempValue
         if (this.temp.temp_value !== '' && this.temp.temp_value !== undefined) {
           tempValue = JSON.parse(this.temp.temp_value)
@@ -526,7 +525,7 @@ export default {
       this.dialogVisible = true
       this.$nextTick(() => {
         this.$refs['tempForm'].clearValidate()
-        copyObject(row, this.temp)
+        this.temp = deepClone(row)
         if (row.user_role === '') {
           this.temp.user_role = []
         } else {
