@@ -198,7 +198,7 @@ export default {
         { prop: 'mobile', label: 'Mobile', align: 'center', minWidth: 150, maxWidth: 180 },
         { prop: 'org_name', label: 'Org', align: 'center', minWidth: 150, maxWidth: 180 },
         { prop: 'role_name', label: 'Role', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'status', label: 'Status', align: 'center', minWidth: 150, maxWidth: 180 }
+        { prop: 'status', formatter: 'sys_user_status', label: 'Status', align: 'center', minWidth: 150, maxWidth: 180 }
       ],
       operates: {
         list: [
@@ -264,12 +264,10 @@ export default {
     ])
   },
   mounted() {
-    // 设置表头查询表单高度，使table高度自适应
     var height = this.$refs.searchForm.$el.offsetHeight
     this.$store.dispatch('app/pageTableHeaderHeight', { height: height })
   },
   destroyed() {
-    // 页面注销，设置pageTableHeaderHeight为0
     this.$store.dispatch('app/pageTableHeaderHeight', { height: 0 })
   },
   created() {
@@ -286,7 +284,6 @@ export default {
       console.log(row, event, column, event.currentTarget)
     },
     handleEdit(index, row, col) {
-      debugger
     },
     handleDelete(index, dataIndex) {
       this.temp_items[dataIndex].value.splice(index, 1)
@@ -358,7 +355,7 @@ export default {
       this.$refs['tempForm'].validate((valid) => {
         if (valid) {
           this.temp.temp_value = JSON.stringify(this.temp_items)
-          this.$api.user.create(this.temp).then((res) => {
+          this.$api.sysUser.create(this.temp).then((res) => {
             this.dialogVisible = false
             if (res.code === 200) {
               this.$message({
@@ -409,21 +406,11 @@ export default {
       this.$refs['tempForm'].validate((valid) => {
         if (valid) {
           this.temp.temp_value = JSON.stringify(this.temp_items)
-          this.$api.user.update(this.temp).then((res) => {
-            if (res.code === 200) {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改成功',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改失败',
-                type: 'error'
-              })
-            }
+          this.$api.sysUser.update(this.temp).then((res) => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
           })
         }
       })
@@ -433,7 +420,7 @@ export default {
         type: 'warning'
       }).then(() => {
         const data = [{ id: row.id }]
-        this.$api.user.del(data).then((res) => {
+        this.$api.sysUser.del(data).then((res) => {
           if (res.code === 200) {
             this.$refs.qtable.getData()
             this.$message({

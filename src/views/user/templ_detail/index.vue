@@ -96,11 +96,7 @@
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-button
-                  size="small"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
-                >删除</el-button>
+                <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 <el-button
                   v-if="scope.$index == colsData.length - 1"
                   size="small"

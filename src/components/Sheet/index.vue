@@ -96,7 +96,6 @@
           </div>
         </template>
       </el-table-column>
-      <!--endregion-->
     </el-table>
     <div class="clearfix" style="height: 32px;margin: 10px 24px 0 10px;">
       <el-pagination
@@ -218,10 +217,7 @@ export default {
     },
     formatter(row, column) {
       if (this.optionsets[column.formatter] !== undefined) {
-        let colValue
-        typeof row[column.prop] === 'number'
-          ? (colValue = row[column.prop].toString())
-          : (colValue = row[column.prop])
+        const colValue = row[column.prop]
         for (var i = 0; i < this.optionsets[column.formatter].length; i++) {
           if (this.optionsets[column.formatter][i].value === colValue) {
             return this.optionsets[column.formatter][i].text
@@ -254,10 +250,7 @@ export default {
         }
       })
       for (var i = 0; i < codes.length; i++) {
-        this.optionsets[codes[i]] = await this.$store.dispatch(
-          'optionset/formatterData',
-          codes[i]
-        )
+        this.optionsets[codes[i]] = await this.$store.dispatch('optionset/formatterData', codes[i])
       }
       this.dataLoading = true
       this.dataQuery

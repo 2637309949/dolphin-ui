@@ -87,9 +87,7 @@
           <el-input v-model="temp.perms" placeholder="Please input perms" />
         </el-form-item>
         <el-form-item label="Type:" prop="type">
-          <el-select v-model="temp.type" placeholder="Please input type" style="width: 100%;">
-            <el-option v-for="item in menuTypes" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
+          <option-set :value.sync="temp.type" placeholder="Please input type" code="sys_menu_type" />
         </el-form-item>
         <el-form-item label="Parent:" prop="parent">
           <cascader
@@ -109,7 +107,6 @@
         </el-button>
       </footer>
     </el-dialog>
-
   </el-container>
 </template>
 
@@ -118,10 +115,11 @@ import { mapGetters } from 'vuex'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import Cascader from '@/components/Cascader'
+import OptionSet from '@/components/OptionSet'
 
 export default {
   name: 'Menu',
-  components: { Tree, Sheet, Cascader },
+  components: { Tree, Sheet, Cascader, OptionSet },
   data() {
     return {
       tableColumns: [
@@ -202,7 +200,7 @@ export default {
         icon: '',
         order: 0,
         perms: '',
-        type: '',
+        type: 0,
         hidden: 0
       },
       rules: {
