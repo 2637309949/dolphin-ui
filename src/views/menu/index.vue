@@ -12,32 +12,17 @@
                 <el-row :gutter="20">
                   <el-col :span="6">
                     <el-form-item label="Name:" class="notice-input" label-width="60px" prop="name">
-                      <el-input
-                        v-model="dataQuery.name"
-                        placeholder="Please input name"
-                        clearable
-                        @keyup.enter.native="search"
-                      />
+                      <el-input v-model="dataQuery.name" placeholder="Please input name" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="Code:" class="notice-input" label-width="60px" prop="code">
-                      <el-input
-                        v-model="dataQuery.code"
-                        placeholder="Please input code"
-                        clearable
-                        @keyup.enter.native="search"
-                      />
+                      <el-input v-model="dataQuery.code" placeholder="Please input code" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="12" style="text-align: right">
                     <el-form-item>
-                      <el-button
-                        type="primary"
-                        icon="el-icon-search"
-                        :size="size"
-                        @click="search"
-                      >Search</el-button>
+                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
                       <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
                     </el-form-item>
                   </el-col>
@@ -49,15 +34,7 @@
               </el-form>
             </el-header>
             <el-main class="table-main">
-              <sheet
-                ref="qtable"
-                :api="this.$api.sysMenu.page"
-                :columns="tableColumns"
-                :data-query="dataQuery"
-                :operates="operates"
-                :float-type="'right'"
-                :select-type="'selection'"
-              />
+              <sheet ref="qtable" :api="this.$api.sysMenu.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
             </el-main>
           </el-container>
         </el-container>
@@ -90,11 +67,7 @@
           <option-set :value.sync="temp.type" placeholder="Please input type" code="sys_menu_type" />
         </el-form-item>
         <el-form-item label="Parent:" prop="parent">
-          <cascader
-            :api="this.$api.sysMenu.tree"
-            :data-query="nodeQuery"
-            :value.sync="temp.parent"
-          />
+          <cascader :api="this.$api.sysMenu.tree" :data-query="nodeQuery" :value.sync="temp.parent" />
         </el-form-item>
         <el-form-item label="Hidden:" prop="hidden">
           <el-radio v-model="temp.hidden" :label="1">是</el-radio>
