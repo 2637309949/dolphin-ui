@@ -43,11 +43,15 @@ service.interceptors.response.use(
    */
   response => {
     // if the custom code is not 20000, it is judged as an error.
+    if (!response.headers['content-type'].includes('application/json')) {
+      return response
+    }
+    // application/json
     const { msg, code = 'Error' } = response.data
     if (code !== 200) {
-      if (code !== 401) {
+      if (code === 403) {
         Message({
-          message: msg,
+          message: 'Insufficient permissions, please contact your administrator',
           type: 'error',
           duration: 5 * 1000
         })
@@ -60,6 +64,12 @@ service.interceptors.response.use(
           store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
+        })
+      } else {
+        Message({
+          message: msg,
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject(new Error(msg))

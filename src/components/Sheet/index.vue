@@ -10,32 +10,22 @@
       :selection-data="selectionData"
       :height="tableMaxHeight"
       @selection-change="selectionChange"
-      @row-click="rowdata"
+@row-click="rowdata"
       @cell-mouse-enter="cellMouseEnter"
     >
       <el-table-column fixed :type="selectType" align="center" width="50" />
-
       <el-table-column v-if="showCover" label="Cover" :align="columns[0].align">
         <template slot-scope="scope">
           <img :src="src+scope.row.cover" width="40" height="40">
         </template>
       </el-table-column>
-
       <el-table-column v-if="showFace" label="Cover" :align="columns[0].align">
         <template slot-scope="scope">
           <img :src="src+scope.row.face" width="40" height="40">
         </template>
       </el-table-column>
-
       <template v-for="(column, index) in columns">
-        <el-table-column
-          :key="column.label"
-          :prop="column.prop"
-          :label="column.label"
-          :align="column.align"
-          :min-width="column.minWidth"
-          :max-width="column.maxWidth"
-        >
+        <el-table-column :key="column.label" :prop="column.prop" :label="column.label" :align="column.align" :min-width="column.minWidth" :max-width="column.maxWidth">
           <template slot-scope="scope">
             <template v-if="!column.render">
               <template v-if="typeof column.formatter == 'string'">
@@ -264,7 +254,7 @@ export default {
           this.tableData = []
         }
         this.dataLoading = false
-      })
+      }).catch(() => {})
     },
     sizeChange(val) {
       scrollTo(0, 600)

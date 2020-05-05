@@ -18,7 +18,7 @@
                 <el-row :gutter="20">
                   <el-col :span="6">
                     <el-form-item label="Mobile:" prop="mobile" class="notice-input" label-width="60px">
-                      <el-input v-model="dataQuery.login_id" placeholder="Please enter your account" clearable @keyup.enter.native="search" />
+                      <el-input v-model="dataQuery.mobile" placeholder="Please enter your account" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
@@ -87,7 +87,7 @@
           <el-input v-model="temp.name" placeholder="Please enter the username" />
         </el-form-item>
         <el-form-item label="NickName:" prop="nickname">
-          <el-input v-model="temp.login_id" placeholder="Please enter the nickname" />
+          <el-input v-model="temp.nickname" placeholder="Please enter the nickname" />
         </el-form-item>
         <el-form-item v-if="dialogStatus === 'create'" label="Pwd:" prop="password">
           <el-input v-model="temp.password" placeholder=" Please enter your password" />
@@ -159,7 +159,7 @@
     <el-dialog title="Change password" :visible.sync="updatePswDialog" width="30%">
       <el-form ref="updatePswForm" :size="size" :rules="rules" :model="temp" label-width="85px">
         <el-form-item label="Mobile:" prop="mobile">
-          <el-input v-model="temp.login_id" placeholder="Please enter the mobile" />
+          <el-input v-model="temp.mobile" placeholder="Please enter the mobile" />
         </el-form-item>
         <el-form-item label="Name:" prop="name">
           <el-input v-model="temp.name" placeholder="Please enter the username" />
@@ -211,19 +211,16 @@ export default {
       dataQuery: {
         page: 1,
         rows: 10,
-        login_id: '',
         name: '',
         cn_org_id: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        login_id: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入账号名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       },
       treeQuery: { del_falg: 0 },
       temp: {
         id: undefined,
-        login_id: '',
         name: '',
         password: '',
         email: '',
@@ -356,18 +353,13 @@ export default {
         if (valid) {
           this.temp.temp_value = JSON.stringify(this.temp_items)
           this.$api.sysUser.create(this.temp).then((res) => {
-            this.dialogVisible = false
             if (res.code === 200) {
               this.$message({
                 message: '创建成功',
                 type: 'success'
               })
               this.$refs.qtable.getData()
-            } else {
-              this.$message({
-                message: res.msg,
-                type: 'error'
-              })
+              this.dialogVisible = false
             }
           })
         }
@@ -393,8 +385,8 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-        } else {
           this.dialogVisible = false
+        } else {
           this.$message({
             message: '修改失败',
             type: 'error'
@@ -407,11 +399,14 @@ export default {
         if (valid) {
           this.temp.temp_value = JSON.stringify(this.temp_items)
           this.$api.sysUser.update(this.temp).then((res) => {
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-          })
+            if (res.code === 200) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+            }
+            this.dialogVisible = false
+          }).catch(() => {})
         }
       })
     },
@@ -427,13 +422,8 @@ export default {
               message: '删除成功',
               type: 'success'
             })
-          } else {
-            this.$message({
-              message: '删除失败',
-              type: 'error'
-            })
           }
-        })
+        }).catch(() => {})
       })
     },
     deleteBatch() {
@@ -451,21 +441,16 @@ export default {
               message: '删除成功',
               type: 'success'
             })
-          } else {
-            this.$message({
-              message: '删除失败',
-              type: 'error'
-            })
           }
         })
-      }).catch(() => {
-      })
+      }).catch(() => {})
     },
     search() {
       this.$refs.qtable.getData()
     },
     resetFields() {
       this.$refs['searchForm'].resetFields()
+      this.dataQuery.cn_org_id = ''
       this.$refs.qtable.getData()
     },
     dialogClose() {

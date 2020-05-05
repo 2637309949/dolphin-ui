@@ -253,21 +253,13 @@ export default {
       this.$refs['temp'].validate(valid => {
         if (valid) {
           this.temp.value = JSON.stringify(this.maps)
-          this.$api.system.UpdateOptionset(this.temp).then(res => {
-            if (res.code === 200) {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改成功',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改失败',
-                type: 'error'
-              })
-            }
+          this.$api.sysOptionset.update(this.temp).then(res => {
+            this.dialogVisible = false
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
           })
         }
       })
