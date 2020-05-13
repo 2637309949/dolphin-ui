@@ -36,7 +36,7 @@ module.exports.update = (data) => {
 module.exports.page = (data) => {
   let url = '/api/sys/user/page?'
   for (var key in data) {
-    url += key + '=' + data[key] + '&'
+    url += key + '=' + encodeURIComponent(data[key]) + '&'
   }
   return axios({
     url: url,
@@ -48,7 +48,7 @@ module.exports.page = (data) => {
 module.exports.get = (data) => {
   let url = '/api/sys/user/get?'
   for (var key in data) {
-    url += key + '=' + data[key] + '&'
+    url += key + '=' + encodeURIComponent(data[key]) + '&'
   }
   return axios({
     url: url,
@@ -56,11 +56,21 @@ module.exports.get = (data) => {
   })
 }
 
+// login 用户认证
+module.exports.login = (data) => {
+  const url = '/api/sys/user/login'
+  return axios({
+    url: url,
+    method: 'post',
+    data
+  })
+}
+
 // logout 用户退出登录
 module.exports.logout = (data) => {
   let url = '/api/sys/user/logout?'
   for (var key in data) {
-    url += key + '=' + data[key] + '&'
+    url += key + '=' + encodeURIComponent(data[key]) + '&'
   }
   return axios({
     url: url,

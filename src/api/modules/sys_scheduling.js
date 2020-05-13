@@ -2,9 +2,9 @@
 // source: auto.go
 const axios = require('@/utils/request').default
 
-// add 添加区域
+// add 添加调度
 module.exports.add = (data) => {
-  const url = '/api/sys/area/add'
+  const url = '/api/sys/scheduling/add'
   return axios({
     url: url,
     method: 'post',
@@ -12,9 +12,9 @@ module.exports.add = (data) => {
   })
 }
 
-// del 删除区域
+// del 删除调度
 module.exports.del = (data) => {
-  const url = '/api/sys/area/del'
+  const url = '/api/sys/scheduling/del'
   return axios({
     url: url,
     method: 'delete',
@@ -22,9 +22,9 @@ module.exports.del = (data) => {
   })
 }
 
-// update 更新区域
+// update 更新调度
 module.exports.update = (data) => {
-  const url = '/api/sys/area/update'
+  const url = '/api/sys/scheduling/update'
   return axios({
     url: url,
     method: 'put',
@@ -32,9 +32,9 @@ module.exports.update = (data) => {
   })
 }
 
-// page 区域分页查询
+// page 调度分页查询
 module.exports.page = (data) => {
-  let url = '/api/sys/area/page?'
+  let url = '/api/sys/scheduling/page?'
   for (var key in data) {
     url += key + '=' + encodeURIComponent(data[key]) + '&'
   }
@@ -44,9 +44,9 @@ module.exports.page = (data) => {
   })
 }
 
-// get 获取区域信息
+// get 获取调度信息
 module.exports.get = (data) => {
-  let url = '/api/sys/area/get?'
+  let url = '/api/sys/scheduling/get?'
   for (var key in data) {
     url += key + '=' + encodeURIComponent(data[key]) + '&'
   }

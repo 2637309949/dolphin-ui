@@ -1,4 +1,4 @@
-import { get } from '@/api/modules/sys_optionset'
+import { sysOptionset } from '@/api/modules'
 
 const state = {
 }
@@ -21,7 +21,7 @@ const actions = {
   },
   async getOptionsets({ commit }, code) {
     if (state[code] === undefined) {
-      const { data: { value } = {}} = await get({ code: code })
+      const { data: { value } = {}} = await sysOptionset.get({ code: code })
       if (value) {
         state[code] = JSON.parse(value)
       }

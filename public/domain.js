@@ -8,5 +8,5 @@ window.Domain = {
     "api_url": "http://localhost:8082",
     "static_url": null,
     "theme": "default",
-    "auth_mode": 1
+    "auth_mode": 2
 }
