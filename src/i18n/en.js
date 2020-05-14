@@ -1,4 +1,12 @@
 export default {
+  common: {
+    create: 'New',
+    delete: 'Delete',
+    update: 'Update',
+    search: 'Search',
+    confirm: 'Confirm',
+    cancel: 'Cancel'
+  },
   route: {
     dashboard: 'Dashboard',
     documentation: 'Documentation',

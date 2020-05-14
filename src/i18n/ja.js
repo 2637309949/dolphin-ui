@@ -1,4 +1,12 @@
 export default {
+  common: {
+    create: '作成',
+    delete: '削除',
+    update: '更新',
+    search: '検索',
+    confirm: '確認',
+    cancel: '「キャンセル」'
+  },
   route: {
     dashboard: 'トップ',
     documentation: 'ドキュメント',

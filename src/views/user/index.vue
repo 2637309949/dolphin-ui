@@ -39,7 +39,7 @@
                     icon="el-icon-plus"
                     :size="size"
                     @click="create"
-                  >New
+                  >{{ $t('common.create') }}
                   </el-button>
                   <el-button
                     v-if="checkPermission(['update_password'])"

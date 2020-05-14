@@ -1,4 +1,12 @@
 export default {
+  common: {
+    create: '新增',
+    delete: '删除',
+    update: '更新',
+    search: '搜索',
+    confirm: '确认',
+    cancel: '取消'
+  },
   route: {
     dashboard: '首页',
     documentation: '文档',
