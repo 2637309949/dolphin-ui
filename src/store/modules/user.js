@@ -1,4 +1,4 @@
-import { sysUser, sysCas } from '@/api/modules'
+import api from '@/api'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -32,7 +32,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { domain, username, password } = userInfo
     return new Promise((resolve, reject) => {
-      sysUser.login({ domain, username, password }).then(response => {
+      api.sysUser.login({ domain, username, password }).then(response => {
         const { data: { access_token }} = response
         commit('SET_TOKEN', access_token)
         setToken(access_token)
@@ -45,7 +45,7 @@ const actions = {
 
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      sysCas.profile(state.token).then(response => {
+      api.sysCas.profile(state.token).then(response => {
         const { data } = response
 
         if (!data) {
@@ -73,7 +73,7 @@ const actions = {
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      sysUser.logout(state.token).then(() => {
+      api.sysUser.logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         removeToken()
