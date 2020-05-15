@@ -71,7 +71,7 @@
     </el-main>
 
     <el-dialog
-      :title="dialogStatus==='create'?$t('common.New'):'Edit'"
+      :title="dialogStatus==='create'?$t('common.create'):$t('common.update')"
       :visible.sync="dialogVisible"
       width="50%"
       @close="dialogClose"
