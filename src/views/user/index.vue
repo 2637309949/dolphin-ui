@@ -8,13 +8,7 @@
           </el-aside>
           <el-container>
             <el-header height="82">
-              <el-form
-                ref="searchForm"
-                :model="dataQuery"
-                :size="size"
-                label-position="left"
-                label-width="80px"
-              >
+              <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
                 <el-row :gutter="20">
                   <el-col :span="6">
                     <el-form-item label="Mobile:" prop="mobile" class="notice-input" label-width="60px">
@@ -30,6 +24,7 @@
                     <el-form-item>
                       <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
                       <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
+                      <export-button :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" name="用户列表.xlsx" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -133,27 +128,11 @@
         >
           <el-input v-if="item.type == 0" v-model.number="temp_items[i].value" placeholder="Please ente" clearable />
           <el-input v-if="item.type == 2" v-model="temp_items[i].value" placeholder="Please ente" clearable />
-          <!--<template v-if="item.type == 3">-->
-          <!--<el-table :data="temp_items[i].value" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">-->
-          <!--<el-table-column v-for="col of JSON.parse(temp_items[i].content)" :prop="col.prop" :label="col.label" :width="col.width">-->
-          <!--<template scope="scope">-->
-          <!--<el-input v-model="temp_items[i].value[scope.$index][col.prop]" size="small" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row.prop)" /> <span>{{ temp_items[i].value[scope.$index][col.prop] }}</span>-->
-          <!--</template>-->
-          <!--</el-table-column>-->
-          <!--<el-table-column label="操作">-->
-          <!--<template scope="scope">-->
-          <!--<el-button size="small" type="text" @click="handleDelete(scope.$index, i)">删除</el-button>-->
-          <!--<el-button v-if="scope.$index == temp_items[i].value.length - 1" size="small" type="text" @click="addRow(i)">添加</el-button>-->
-          <!--</template>-->
-          <!--</el-table-column>-->
-          <!--</el-table>-->
-          <!--</template>-->
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
         <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
-        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">确 定
-        </el-button>
+        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">确 定</el-button>
       </footer>
     </el-dialog>
     <el-dialog title="Change password" :visible.sync="updatePswDialog" width="30%">
@@ -183,12 +162,14 @@ import { deepClone } from '@/utils/index'
 import checkPermission from '@/utils/permission'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'User',
   components: {
     Tree,
-    Sheet
+    Sheet,
+    ExportButton
   },
   data() {
     return {
