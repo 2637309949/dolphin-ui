@@ -2,12 +2,14 @@ export default {
   common: {
     create: 'New',
     delete: 'Delete',
+    batchDelete: 'BatchDelete',
     update: 'Update',
     search: 'Search',
     confirm: 'Confirm',
     reset: 'Reset',
     cancel: 'Cancel',
-    export: 'Export'
+    export: 'Export',
+    updatePassword: 'UpdatePassword'
   },
   route: {
     'Dashboard': 'Dashboard',

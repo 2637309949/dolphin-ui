@@ -55,7 +55,7 @@
       </el-card>
     </el-main>
 
-    <el-dialog :title="dialogStatus==='create'?'新建角色':'编辑角色'" :visible.sync="dialogVisible" width="60%" @close="dialogClose">
+    <el-dialog :title="dialogStatus==='create'? $t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="60%" @close="dialogClose">
       <el-form ref="dataForm" :size="size" :rules="rules" :model="temp" label-width="85px">
         <el-form-item label="角色名:" prop="name">
           <el-input v-model="temp.name" :size="size" placeholder="请输入角色名" />

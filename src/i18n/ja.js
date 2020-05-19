@@ -2,12 +2,14 @@ export default {
   common: {
     create: '作成',
     delete: '削除',
+    batchDelete: '一括削除',
     update: '更新',
     search: '検索',
     confirm: '確認',
     cancel: '「キャンセル」',
     reset: 'リセット',
-    export: '書き出す'
+    export: '書き出す',
+    updatePassword: 'パスワードを更新する'
   },
   route: {
     'Dashboard': 'トップ',

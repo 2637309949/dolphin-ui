@@ -2,12 +2,14 @@ export default {
   common: {
     create: 'Agregar',
     delete: 'Eliminar',
+    batchDelete: 'eliminación por lotes',
     update: 'Actualizar',
     search: 'Buscar',
     confirm: 'Confirmar',
     cancel: 'Cancelar',
     reset: 'Reiniciar',
-    export: 'exportar'
+    export: 'exportar',
+    updatePassword: 'Actualiza contraseña'
   },
   route: {
     'Dashboard': 'Panel de control',

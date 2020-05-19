@@ -2,12 +2,14 @@ export default {
   common: {
     create: '新增',
     delete: '删除',
+    batchDelete: '批量删除',
     update: '更新',
     search: '搜索',
     confirm: '确认',
     cancel: '取消',
     reset: '重置',
-    export: '导出'
+    export: '导出',
+    updatePassword: '更新密码'
   },
   route: {
     'Dashboard': '首页',

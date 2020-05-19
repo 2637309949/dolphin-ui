@@ -4,32 +4,16 @@
       <el-card>
         <el-container>
           <el-header height="120">
-            <el-form
-              ref="searchForm"
-              :model="dataQuery"
-              :size="size"
-              label-position="left"
-              label-width="80px"
-            >
+            <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
               <el-row :gutter="20">
                 <el-col :span="6">
                   <el-form-item label="名称:" class="notice-input" label-width="60px" prop="name">
-                    <el-input
-                      v-model="dataQuery.name"
-                      placeholder="请输入名称"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="编码:" class="notice-input" label-width="60px" prop="code">
-                    <el-input
-                      v-model="dataQuery.code"
-                      placeholder="请输入编码"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" style="text-align: right">
@@ -41,8 +25,8 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">新建</el-button>
-                <el-button :size="size" @click="deleteBatch">批量删除</el-button>
+                <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}</el-button>
+                <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
               </el-row>
             </el-form>
           </el-header>
@@ -62,7 +46,7 @@
     </el-main>
 
     <el-dialog
-      :title="dialogStatus==='create'?'新建':'编辑'"
+      :title="dialogStatus==='create'? $t('common.create'):$t('common.update')"
       :visible.sync="dialogVisible"
       width="40%"
       @close="dialogClose"

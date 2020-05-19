@@ -29,55 +29,24 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-button
-                    type="primary"
-                    icon="el-icon-plus"
-                    :size="size"
-                    @click="create"
-                  >{{ $t('common.create') }}
+                  <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}
                   </el-button>
-                  <el-button
-                    v-if="checkPermission(['update_password'])"
-                    type="success"
-                    icon="el-icon-edit"
-                    :size="size"
-                    @click="updatePassword"
-                  >Change password
+                  <el-button v-if="checkPermission(['update_password'])" type="success" icon="el-icon-edit" :size="size" @click="updatePassword">{{ $t('common.updatePassword') }}
                   </el-button>
-                  <el-button :size="size" @click="deleteBatch">Bulk Delete</el-button>
+                  <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
                 </el-row>
               </el-form>
             </el-header>
             <el-main class="table-main">
-              <sheet
-                ref="qtable"
-                :api="this.$api.sysUser.page"
-                :columns="tableColumns"
-                :data-query="dataQuery"
-                :operates="operates"
-                :float-type="'right'"
-                :select-type="'selection'"
-                header-name="searchForm"
-              />
+              <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" />
             </el-main>
           </el-container>
         </el-container>
       </el-card>
     </el-main>
 
-    <el-dialog
-      :title="dialogStatus==='create'?$t('common.create'):$t('common.update')"
-      :visible.sync="dialogVisible"
-      width="50%"
-      @close="dialogClose"
-    >
-      <el-form
-        ref="tempForm"
-        :size="size"
-        :rules="rules"
-        :model="temp"
-        label-width="85px"
-      >
+    <el-dialog :title="dialogStatus==='create'?$t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="50%" @close="dialogClose">
+      <el-form ref="tempForm" :size="size" :rules="rules" :model="temp" label-width="85px">
         <el-form-item label="Name:" prop="name">
           <el-input v-model="temp.name" placeholder="Please enter the username" />
         </el-form-item>
@@ -89,12 +58,7 @@
         </el-form-item>
         <el-form-item label="Org:">
           <el-select v-model="temp.org_id" style="width: 100%" placeholder=" Please select the org">
-            <el-option
-              v-for="item in orgs"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+            <el-option v-for="item in orgs" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="Email:" prop="email">
@@ -110,28 +74,16 @@
         </el-form-item>
         <el-form-item label="Template:" prop="temp_id">
           <el-select v-model="temp.temp_id" style="width: 100%" placeholder="Please select the template" @change="tempChange">
-            <el-option
-              v-for="item in templs"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+            <el-option v-for="item in templs" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item
-          v-for="(item, i) in temp_items"
-          :key="item.id"
-          :label="item.name + ':'"
-          label-position="right"
-          class="notice-input"
-          :prop="item.id"
-        >
+        <el-form-item v-for="(item, i) in temp_items" :key="item.id" :label="item.name + ':'" label-position="right" class="notice-input" :prop="item.id">
           <el-input v-if="item.type == 0" v-model.number="temp_items[i].value" placeholder="Please ente" clearable />
           <el-input v-if="item.type == 2" v-model="temp_items[i].value" placeholder="Please ente" clearable />
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
+        <el-button :size="size" @click="dialogVisible = false">{{ $t('common.cancel') }}</el-button>
         <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">确 定</el-button>
       </footer>
     </el-dialog>
@@ -148,8 +100,8 @@
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="updatePswDialog = false">Cancel</el-button>
-        <el-button :size="size" type="primary" @click="updatePws">confirm
+        <el-button :size="size" @click="updatePswDialog = false">{{ $t('common.cancel') }}</el-button>
+        <el-button :size="size" type="primary" @click="updatePws">{{ $t('common.confirm') }}
         </el-button>
       </footer>
     </el-dialog>
