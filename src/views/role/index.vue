@@ -35,8 +35,8 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">新建</el-button>
-                <el-button :size="size" @click="deleteBatch">批量删除</el-button>
+                <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}</el-button>
+                <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
               </el-row>
             </el-form>
           </el-header>

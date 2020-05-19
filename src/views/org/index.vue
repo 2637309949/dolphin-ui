@@ -12,22 +12,12 @@
                 <el-row :gutter="20">
                   <el-col :span="6">
                     <el-form-item label="Name:" class="notice-input" label-width="60px" prop="name">
-                      <el-input
-                        v-model="dataQuery.name"
-                        placeholder="Please input name"
-                        clearable
-                        @keyup.enter.native="search"
-                      />
+                      <el-input v-model="dataQuery.name" placeholder="Please input name" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="Code:" class="notice-input" label-width="60px" prop="code">
-                      <el-input
-                        v-model="dataQuery.code"
-                        placeholder="Please input code"
-                        clearable
-                        @keyup.enter.native="search"
-                      />
+                      <el-input v-model="dataQuery.code" placeholder="Please input code" clearable @keyup.enter.native="search" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="12" style="text-align: right">
@@ -39,8 +29,8 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">New</el-button>
-                  <el-button :size="size" @click="deleteBatch">BatchDelete</el-button>
+                  <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}</el-button>
+                  <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
                 </el-row>
               </el-form>
             </el-header>
