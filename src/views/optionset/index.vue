@@ -239,23 +239,22 @@ export default {
       })
       this.$confirm('确认批量删除选中数据吗？', '提示', {
         type: 'warning'
-      })
-        .then(() => {
-          this.$api.system.DelOptionset(ids).then(res => {
-            if (res.code === 200) {
-              this.$refs.qtable.getData()
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            } else {
-              this.$message({
-                message: '删除失败',
-                type: 'error'
-              })
-            }
-          })
+      }).then(() => {
+        this.$api.system.DelOptionset(ids).then(res => {
+          if (res.code === 200) {
+            this.$refs.qtable.getData()
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: '删除失败',
+              type: 'error'
+            })
+          }
         })
+      })
     },
     delItem(index) {
       this.maps.splice(index, 1)
