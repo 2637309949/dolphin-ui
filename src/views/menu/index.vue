@@ -24,6 +24,7 @@
                     <el-form-item>
                       <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
                       <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
+                      <export-button :api="this.$api.sysMenu.page" :columns="tableColumns" :data-query="dataQuery" name="menu.xlsx" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -89,10 +90,17 @@ import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import Cascader from '@/components/Cascader'
 import OptionSet from '@/components/OptionSet'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'Menu',
-  components: { Tree, Sheet, Cascader, OptionSet },
+  components: {
+    Tree,
+    Sheet,
+    Cascader,
+    OptionSet,
+    ExportButton
+  },
   data() {
     return {
       tableColumns: [

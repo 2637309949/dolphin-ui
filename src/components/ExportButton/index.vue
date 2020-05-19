@@ -52,7 +52,7 @@ export default {
     onClick() {
       this.isExporting = true
       this.api(this.getExportQuery()).then(({ data }) => {
-        download(this.$api.sysAttachment.export(data)).then(() => {
+        download(data).then(() => {
           this.isExporting = false
         })
       })
@@ -64,11 +64,11 @@ export default {
           return typeof column.show === 'undefined' || column.show
         })
         .map(column => {
-          if (typeof column.formatter === 'string') {
-            column.code = column.formatter
-          } else {
-            delete column.code
-          }
+          // if (typeof column.formatter === 'string') {
+          //   column.code = column.formatter
+          // } else {
+          //   delete column.code
+          // }
           if (column.width) {
             column.width = column.width * 0.125 || 0
           }

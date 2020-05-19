@@ -32,13 +32,9 @@
                   </el-col>
                   <el-col :span="12" style="text-align: right">
                     <el-form-item>
-                      <el-button
-                        type="primary"
-                        icon="el-icon-search"
-                        :size="size"
-                        @click="search"
-                      >Search</el-button>
+                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
                       <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
+                      <export-button :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" name="org.xlsx" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -118,10 +114,16 @@ import { mapGetters } from 'vuex'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import Cascader from '@/components/Cascader'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'Org',
-  components: { Tree, Sheet, Cascader },
+  components: {
+    Tree,
+    Sheet,
+    Cascader,
+    ExportButton
+  },
   data() {
     return {
       tableColumns: [

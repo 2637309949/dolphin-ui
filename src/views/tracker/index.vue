@@ -4,13 +4,7 @@
       <el-card>
         <el-container>
           <el-header height="120">
-            <el-form
-              ref="searchForm"
-              :model="dataQuery"
-              :size="size"
-              label-position="left"
-              label-width="80px"
-            >
+            <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
               <el-row :gutter="20">
                 <el-col :span="6">
                   <el-form-item label="名称:" class="notice-input" label-width="60px" prop="name">
@@ -36,6 +30,7 @@
                   <el-form-item>
                     <el-button type="primary" icon="el-icon-search" :size="size" @click="search">查询</el-button>
                     <el-button icon="el-icon-refresh" :size="size" @click="resetFields">重置</el-button>
+                    <export-button :api="this.$api.sysTracker.page" :columns="tableColumns" :data-query="dataQuery" name="tracker.xlsx" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -81,11 +76,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import Sheet from '@/components/Sheet/index'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'Tracker',
   components: {
-    Sheet
+    Sheet,
+    ExportButton
   },
   data() {
     return {

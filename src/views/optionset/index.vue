@@ -36,7 +36,7 @@
                   <el-form-item>
                     <el-button type="primary" icon="el-icon-search" :size="size" @click="search">查询</el-button>
                     <el-button icon="el-icon-refresh" :size="size" @click="resetFields">重置</el-button>
-                    <!-- -->
+                    <export-button :api="this.$api.sysOptionset.page" :columns="tableColumns" :data-query="dataQuery" name="optionset.xlsx" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -143,11 +143,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import Sheet from '@/components/Sheet/index'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'Optionset',
   components: {
-    Sheet
+    Sheet,
+    ExportButton
   },
   data() {
     return {

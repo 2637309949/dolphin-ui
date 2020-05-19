@@ -30,7 +30,7 @@
                   <el-form-item>
                     <el-button type="primary" icon="el-icon-search" :size="size" @click="search">查询</el-button>
                     <el-button icon="el-icon-refresh" :size="size" @click="resetFields">重置</el-button>
-                    <!-- -->
+                    <export-button :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" name="roles.xlsx" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -55,12 +55,7 @@
       </el-card>
     </el-main>
 
-    <el-dialog
-      :title="dialogStatus==='create'?'新建角色':'编辑角色'"
-      :visible.sync="dialogVisible"
-      width="60%"
-      @close="dialogClose"
-    >
+    <el-dialog :title="dialogStatus==='create'?'新建角色':'编辑角色'" :visible.sync="dialogVisible" width="60%" @close="dialogClose">
       <el-form ref="dataForm" :size="size" :rules="rules" :model="temp" label-width="85px">
         <el-form-item label="角色名:" prop="name">
           <el-input v-model="temp.name" :size="size" placeholder="请输入角色名" />
@@ -128,12 +123,14 @@ import { mapGetters } from 'vuex'
 import { deepClone } from '@/utils/index'
 import Sheet from '@/components/Sheet'
 import treeTransfer from 'el-tree-transfer'
+import ExportButton from '@/components/ExportButton'
 
 export default {
   name: 'Role',
   components: {
     Sheet,
-    treeTransfer
+    treeTransfer,
+    ExportButton
   },
   data() {
     return {
