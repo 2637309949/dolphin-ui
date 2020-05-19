@@ -6,7 +6,8 @@ export default {
     search: 'Buscar',
     confirm: 'Confirmar',
     cancel: 'Cancelar',
-    reset: 'Reiniciar'
+    reset: 'Reiniciar',
+    export: 'exportar'
   },
   route: {
     'Dashboard': 'Panel de control',

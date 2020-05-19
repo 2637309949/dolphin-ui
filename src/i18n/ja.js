@@ -6,7 +6,8 @@ export default {
     search: '検索',
     confirm: '確認',
     cancel: '「キャンセル」',
-    reset: 'リセット'
+    reset: 'リセット',
+    export: '書き出す'
   },
   route: {
     'Dashboard': 'トップ',

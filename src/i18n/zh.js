@@ -6,7 +6,8 @@ export default {
     search: '搜索',
     confirm: '确认',
     cancel: '取消',
-    reset: '重置'
+    reset: '重置',
+    export: '导出'
   },
   route: {
     'Dashboard': '首页',

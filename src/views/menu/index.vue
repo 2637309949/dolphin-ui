@@ -22,8 +22,8 @@
                   </el-col>
                   <el-col :span="12" style="text-align: right">
                     <el-form-item>
-                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">Search</el-button>
-                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">Reset</el-button>
+                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
+                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
                       <export-button :api="this.$api.sysMenu.page" :columns="tableColumns" :data-query="dataQuery" name="menu.xlsx" />
                     </el-form-item>
                   </el-col>

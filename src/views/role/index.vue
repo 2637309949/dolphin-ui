@@ -28,8 +28,8 @@
                 </el-col>
                 <el-col :span="12" style="text-align: right">
                   <el-form-item>
-                    <el-button type="primary" icon="el-icon-search" :size="size" @click="search">查询</el-button>
-                    <el-button icon="el-icon-refresh" :size="size" @click="resetFields">重置</el-button>
+                    <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
+                    <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
                     <export-button :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" name="roles.xlsx" />
                   </el-form-item>
                 </el-col>

@@ -1,6 +1,6 @@
 <template>
   <el-button :loading="isExporting" class="export-button" type="primary" :size="size" @click="onClick">
-    <slot>Export</slot>
+    <slot>{{ $t('common.export') }}</slot>
   </el-button>
 </template>
 

@@ -6,7 +6,8 @@ export default {
     search: 'Search',
     confirm: 'Confirm',
     reset: 'Reset',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    export: 'Export'
   },
   route: {
     'Dashboard': 'Dashboard',
