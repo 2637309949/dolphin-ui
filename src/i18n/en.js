@@ -5,6 +5,7 @@ export default {
     update: 'Update',
     search: 'Search',
     confirm: 'Confirm',
+    reset: 'Reset',
     cancel: 'Cancel'
   },
   route: {

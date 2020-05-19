@@ -8,22 +8,12 @@
               <el-row :gutter="20">
                 <el-col :span="6">
                   <el-form-item label="名称:" class="notice-input" label-width="60px" prop="name">
-                    <el-input
-                      v-model="dataQuery.name"
-                      placeholder="请输入名称"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="编码:" class="notice-input" label-width="60px" prop="code">
-                    <el-input
-                      v-model="dataQuery.code"
-                      placeholder="请输入编码"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" style="text-align: right">

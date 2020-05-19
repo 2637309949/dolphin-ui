@@ -5,7 +5,8 @@ export default {
     update: '更新',
     search: '検索',
     confirm: '確認',
-    cancel: '「キャンセル」'
+    cancel: '「キャンセル」',
+    reset: 'リセット'
   },
   route: {
     'Dashboard': 'トップ',
