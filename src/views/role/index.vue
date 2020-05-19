@@ -8,22 +8,12 @@
               <el-row :gutter="20">
                 <el-col :span="6">
                   <el-form-item label="名称:" class="notice-input" label-width="60px">
-                    <el-input
-                      v-model="dataQuery.name"
-                      placeholder="请输入名称"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="编码:" class="notice-input" label-width="60px">
-                    <el-input
-                      v-model="dataQuery.code"
-                      placeholder="请输入编码"
-                      clearable
-                      @keyup.enter.native="search"
-                    />
+                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" style="text-align: right">
@@ -107,12 +97,8 @@
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
-        <el-button
-          :size="size"
-          type="primary"
-          @click="dialogStatus==='create'?createData():updateData()"
-        >确 定</el-button>
+        <el-button :size="size" @click="dialogVisible = false">{{ $t('common.cancel') }}</el-button>
+        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('common.confirm') }}</el-button>
       </footer>
     </el-dialog>
   </el-container>

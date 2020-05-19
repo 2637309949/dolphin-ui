@@ -45,12 +45,7 @@
       </el-card>
     </el-main>
 
-    <el-dialog
-      :title="dialogStatus==='create'? $t('common.create'):$t('common.update')"
-      :visible.sync="dialogVisible"
-      width="40%"
-      @close="dialogClose"
-    >
+    <el-dialog :title="dialogStatus==='create'? $t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="40%" @close="dialogClose">
       <el-form ref="temp" :size="size" :rules="rules" :model="temp" label-width="120px">
         <el-form-item label="名称:" prop="name">
           <el-input v-model="temp.name" :size="size" placeholder="请输入名称" />
@@ -61,50 +56,19 @@
         <el-form-item label="备注:" prop="remark">
           <el-input v-model="temp.remark" :size="size" placeholder="请输入备注" />
         </el-form-item>
-        <el-form-item
-          label="键值对:"
-          label-position="right"
-          label-width="120px"
-          class="notice-input"
-          prop="maps"
-        >
-          <div
-            v-for="(item, index) in maps"
-            :key="index"
-            style="width: 100%; float: left; margin-bottom: 5px;"
-            type="flex"
-          >
+        <el-form-item label="键值对:" label-position="right" label-width="120px" class="notice-input" prop="maps">
+          <div v-for="(item, index) in maps" :key="index" style="width: 100%; float: left; margin-bottom: 5px;" type="flex">
             <div style="width: 15%; float: left">
               <el-input v-model="item.value" placeholder="value" />
             </div>
             <div style="width: 35%; float: left;">
-              <el-input
-                v-model="item.text"
-                type="textarea"
-                :rows="2"
-                placeholder="text"
-                clearable
-                style="border-left: 0px;margin-left: 11px;"
-              />
+              <el-input v-model="item.text" type="textarea" :rows="2" placeholder="text" clearable style="border-left: 0px;margin-left: 11px;" />
             </div>
             <div style="width: 35%; float: left;margin-left:20px">
-              <el-input
-                v-model="item.label"
-                type="textarea"
-                :rows="2"
-                placeholder="请输入说明文字"
-                clearable
-                style="border-left: 0px;margin-left: 11px;"
-              />
+              <el-input v-model="item.label" type="textarea" :rows="2" placeholder="请输入说明文字" clearable style="border-left: 0px;margin-left: 11px;" />
             </div>
             <div style="width: 5%; float: left;padding-left: 23px; ">
-              <el-button
-                icon="el-icon-minus"
-                circle
-                :size="size"
-                style="padding: 5px;"
-                @click="delItem(index)"
-              />
+              <el-button icon="el-icon-minus" circle :size="size" style="padding: 5px;" @click="delItem(index)" />
             </div>
           </div>
           <div type="flex" class="row-bg repair-item" style="float: left; width: 95%; ">
@@ -113,12 +77,8 @@
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">取 消</el-button>
-        <el-button
-          :size="size"
-          type="primary"
-          @click="dialogStatus==='create'?createData():updateData()"
-        >确 定</el-button>
+        <el-button :size="size" @click="dialogVisible = false">{{ $t('common.cancel') }}</el-button>
+        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('common.confirm') }}</el-button>
       </footer>
     </el-dialog>
   </el-container>

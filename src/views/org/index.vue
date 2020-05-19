@@ -78,11 +78,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="Parent:" prop="parent">
-          <cascader
-            :api="this.$api.sysOrg.tree"
-            :data-query="nodeQuery"
-            :value.sync="temp.parent"
-          />
+          <cascader :api="this.$api.sysOrg.tree" :data-query="nodeQuery" :value.sync="temp.parent" />
         </el-form-item>
         <el-form-item label="Hidden:" prop="hidden">
           <el-radio v-model="temp.hidden" :label="1">是</el-radio>
