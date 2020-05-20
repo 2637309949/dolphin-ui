@@ -182,5 +182,15 @@ export default {
     tagsView: 'Tags-View 開く',
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
+  },
+  tracker: {
+    name: '名前',
+    code: 'コーディング',
+    detail: '細部',
+    ipAddress: 'IPアドレス',
+    reqHeader: 'リクエストヘッダー',
+    reqAddress: 'リクエストアドレス',
+    reqContent: 'コンテンツをリクエストする',
+    resContent: 'コンテンツに戻る'
   }
 }

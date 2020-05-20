@@ -182,5 +182,15 @@ export default {
     tagsView: 'Open Tags-View',
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
+  },
+  tracker: {
+    name: 'Name',
+    code: 'Code',
+    detail: 'Detail',
+    ipAddress: 'IPAddress',
+    reqHeader: 'ReqHeader',
+    reqAddress: 'ReqAddress',
+    reqContent: 'ReqContent',
+    resContent: 'ResContent'
   }
 }

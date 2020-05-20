@@ -7,12 +7,12 @@
             <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
               <el-row :gutter="20">
                 <el-col :span="6">
-                  <el-form-item label="名称:" class="notice-input" label-width="60px" prop="name">
+                  <el-form-item :label="$t('tracker.name').concat(':')" class="notice-input" label-width="60px" prop="name">
                     <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="编码:" class="notice-input" label-width="60px" prop="code">
+                  <el-form-item :label="$t('tracker.code').concat(':')" class="notice-input" label-width="60px" prop="code">
                     <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
@@ -33,21 +33,21 @@
       </el-card>
     </el-main>
 
-    <el-dialog title="详情" :visible.sync="dialogVisible" width="70%">
+    <el-dialog :title="$t('tracker.detail')" :visible.sync="dialogVisible" width="70%">
       <el-form ref="form" label-width="80px">
-        <el-form-item label="ip地址:" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.ipAddress').concat(':')" class="notice-input" label-width="80px">
           <el-input v-model="temp.client_ip" />
         </el-form-item>
-        <el-form-item label="请求头:" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqHeader').concat(':')" class="notice-input" label-width="80px">
           <el-input v-model="temp.header" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
-        <el-form-item label="请求地址:" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqAddress').concat(':')" class="notice-input" label-width="80px">
           <el-input v-model="temp.path" />
         </el-form-item>
-        <el-form-item label="请求内容:" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqContent').concat(':')" class="notice-input" label-width="80px">
           <el-input v-model="temp.req_body" />
         </el-form-item>
-        <el-form-item label="返回内容:" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.resContent').concat(':')" class="notice-input" label-width="80px">
           <el-input v-model="temp.res_body" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
       </el-form>

@@ -182,5 +182,15 @@ export default {
     tagsView: '开启 Tags-View',
     fixedHeader: '固定 Header',
     sidebarLogo: '侧边栏 Logo'
+  },
+  tracker: {
+    name: '名称',
+    code: '编码',
+    detail: '详情',
+    ipAddress: 'IP地址',
+    reqHeader: '请求头',
+    reqAddress: '请求地址',
+    reqContent: '请求内容',
+    resContent: '返回内容'
   }
 }
