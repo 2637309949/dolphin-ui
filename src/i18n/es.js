@@ -8,11 +8,13 @@ export default {
     confirm: 'Confirmar',
     cancel: 'Cancelar',
     reset: 'Reiniciar',
-    export: 'exportar',
+    export: 'Exportar',
     updatePassword: 'Actualiza contraseña'
   },
   route: {
     'Dashboard': 'Panel de control',
+    'Application': 'Solicitud',
+    'Setting': 'Ajuste',
     'Documentation': 'Documentación',
     'Guide': 'Guía',
     'Permission': 'Permisos',
@@ -184,13 +186,13 @@ export default {
     sidebarLogo: 'Sidebar Logo'
   },
   tracker: {
-    name: 'nombre',
-    code: 'codificación',
+    name: 'Nombre',
+    code: 'Codificación',
     detail: 'Detalles',
     ipAddress: 'dirección IP',
     reqHeader: 'Encabezado de solicitud',
     reqAddress: 'Dirección de solicitud',
-    reqContent: 'olicitar contenido',
+    reqContent: 'Olicitar contenido',
     resContent: 'Volver al contenido'
   }
 }

@@ -13,6 +13,8 @@ export default {
   },
   route: {
     'Dashboard': 'トップ',
+    'Application': '応用',
+    'Setting': '設定',
     'Documentation': 'ドキュメント',
     'Guide': 'ガイド',
     'Permission': '権限',

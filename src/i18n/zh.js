@@ -13,6 +13,8 @@ export default {
   },
   route: {
     'Dashboard': '首页',
+    'Application': '应用',
+    'Setting': '设置',
     'Documentation': '文档',
     'Guide': '引导页',
     'Permission': '权限测试页',
