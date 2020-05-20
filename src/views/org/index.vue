@@ -241,18 +241,11 @@ export default {
         if (valid) {
           this.$api.sysOrg.add(this.temp).then(res => {
             this.dialogVisible = false
-            if (res.code === 200) {
-              this.$message({
-                message: 'Created successfully',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.$message({
-                message: 'Failed to create',
-                type: 'error'
-              })
-            }
+            this.$message({
+              message: 'Created successfully',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
           })
         }
       })
@@ -263,18 +256,11 @@ export default {
           const postData = Object.assign({}, this.temp)
           this.$api.sysOrg.update(postData).then(res => {
             this.dialogVisible = false
-            if (res.code === 200) {
-              this.$message({
-                message: 'modify successfully',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.$message({
-                message: 'change failed',
-                type: 'error'
-              })
-            }
+            this.$message({
+              message: 'modify successfully',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
           })
         }
       })
@@ -290,18 +276,11 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$api.sysOrg.del({ id: row.id }).then(res => {
-          if (res.code === 200) {
-            this.$message({
-              message: 'successfully deleted',
-              type: 'success'
-            })
-            this.$refs.qtable.getData()
-          } else {
-            this.$message({
-              message: 'failed to delete',
-              type: 'error'
-            })
-          }
+          this.$message({
+            message: 'successfully deleted',
+            type: 'success'
+          })
+          this.$refs.qtable.getData()
         })
       })
     },
@@ -314,18 +293,11 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$api.sysOrg.batchDel(ids).then(res => {
-          if (res.code === 200) {
-            this.$refs.qtable.getData()
-            this.$message({
-              message: 'successfully deleted',
-              type: 'success'
-            })
-          } else {
-            this.$message({
-              message: 'failed to delete',
-              type: 'error'
-            })
-          }
+          this.$refs.qtable.getData()
+          this.$message({
+            message: 'successfully deleted',
+            type: 'success'
+          })
         })
       })
     },

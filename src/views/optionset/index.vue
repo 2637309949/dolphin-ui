@@ -72,7 +72,7 @@
             </div>
           </div>
           <div type="flex" class="row-bg repair-item" style="float: left; width: 95%; ">
-            <div class="button" @click="addItem">+ 添加</div>
+            <div class="button" @click="addItem">+ {{ $t('common.create') }}</div>
           </div>
         </el-form-item>
       </el-form>
@@ -179,18 +179,11 @@ export default {
           this.temp.value = JSON.stringify(this.maps)
           this.$api.system.AddOptionset(this.temp).then(res => {
             this.dialogVisible = false
-            if (res.code === 200) {
-              this.$message({
-                message: '创建成功',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.$message({
-                message: '创建失败',
-                type: 'error'
-              })
-            }
+            this.$message({
+              message: '创建成功',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
           })
         }
       })
@@ -213,46 +206,27 @@ export default {
     deleteData(row) {
       this.$confirm('确认删除？', '提示', {
         type: 'warning'
-      })
-        .then(() => {
-          this.$api.system.DelOptionset([{ id: row.id }]).then(res => {
-            if (res.code === 200) {
-              this.$refs.qtable.getData()
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            } else {
-              this.$message({
-                message: '删除失败',
-                type: 'error'
-              })
-            }
+      }).then(() => {
+        this.$api.system.DelOptionset([{ id: row.id }]).then(res => {
+          this.$refs.qtable.getData()
+          this.$message({
+            message: '删除成功',
+            type: 'success'
           })
         })
-        .catch(() => {})
+      }).catch(() => {})
     },
     deleteBatch() {
-      const ids = []
-      this.$refs.qtable.multipleSelection.forEach(row => {
-        ids.push({ id: row.id })
-      })
+      const ids = this.$refs.qtable.multipleSelection.map(row => ({ id: row.id }))
       this.$confirm('确认批量删除选中数据吗？', '提示', {
         type: 'warning'
       }).then(() => {
         this.$api.system.DelOptionset(ids).then(res => {
-          if (res.code === 200) {
-            this.$refs.qtable.getData()
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-          } else {
-            this.$message({
-              message: '删除失败',
-              type: 'error'
-            })
-          }
+          this.$refs.qtable.getData()
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
         })
       })
     },

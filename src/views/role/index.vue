@@ -212,7 +212,6 @@ export default {
       Promise.all([this.$api.sysMenu.tree(), this.$api.sysRole.roleMenuTree({ role_id: role_id })]).then(res => {
         this.fromData = res[0].data
         this.selectMenu = res[1].data
-
         this.selectedArray = []
         this.selectMenu.forEach(item => {
           const subSelectId = this.getEndNodes(item)
@@ -322,22 +321,13 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           const postData = Object.assign({}, this.temp)
-          console.log(postData)
           this.$api.system.UpdateRole(postData).then(res => {
-            if (res.code === 200) {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改成功',
-                type: 'success'
-              })
-              this.$refs.qtable.getData()
-            } else {
-              this.dialogVisible = false
-              this.$message({
-                message: '修改失败',
-                type: 'error'
-              })
-            }
+            this.dialogVisible = false
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
           })
         }
       })
@@ -345,23 +335,15 @@ export default {
     deleteData(row) {
       this.$confirm('确认删除？', '提示', {
         type: 'warning'
-      })
-        .then(() => {
-          this.$api.system.DelRole([{ id: row.id }]).then(res => {
-            if (res.code === 200) {
-              this.$refs.qtable.getData()
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            } else {
-              this.$message({
-                message: '删除失败',
-                type: 'error'
-              })
-            }
+      }).then(() => {
+        this.$api.system.DelRole([{ id: row.id }]).then(res => {
+          this.$refs.qtable.getData()
+          this.$message({
+            message: '删除成功',
+            type: 'success'
           })
         })
+      })
         .catch(() => {})
     },
     deleteBatch() {
@@ -371,23 +353,15 @@ export default {
       })
       this.$confirm('确认批量删除选中数据吗？', '提示', {
         type: 'warning'
-      })
-        .then(() => {
-          this.$api.system.DelRole(ids).then(res => {
-            if (res.code === 200) {
-              this.$refs.qtable.getData()
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            } else {
-              this.$message({
-                message: '删除失败',
-                type: 'error'
-              })
-            }
+      }).then(() => {
+        this.$api.system.DelRole(ids).then(res => {
+          this.$refs.qtable.getData()
+          this.$message({
+            message: '删除成功',
+            type: 'success'
           })
         })
+      })
         .catch(() => {})
     },
     search() {
