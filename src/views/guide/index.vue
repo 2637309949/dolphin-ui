@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Driver from 'driver.js' // import driver.js
-import 'driver.js/dist/driver.min.css' // import driver.js css
+import Driver from 'driver.js'
+import 'driver.js/dist/driver.min.css'
 import steps from './steps'
 
 export default {
