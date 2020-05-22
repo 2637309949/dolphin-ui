@@ -105,19 +105,6 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
-        meta: { title: 'Guide', icon: 'guide', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
@@ -169,18 +156,6 @@ export const asyncRoutes = [
           title: 'Role Permission',
           roles: ['admin']
         }
-      }
-    ]
-  },
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
       }
     ]
   },
@@ -303,22 +278,7 @@ export const asyncRoutes = [
       }
     ]
   },
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    name: 'Zip',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'download',
-        component: () => import('@/views/zip/index'),
-        name: 'ExportZip',
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
+
   {
     path: '/pdf',
     component: Layout,

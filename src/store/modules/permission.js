@@ -32,7 +32,6 @@ export function filterAsyncRoutes(routes, roles) {
       res.push(tmp)
     }
   })
-
   return res
 }
 
@@ -48,16 +47,16 @@ const mutations = {
   }
 }
 
-function buildRouters(accessedRoutes) {
-  return (accessedRoutes || []).map(item => {
+function buildRouters(accessedRoutes = []) {
+  return accessedRoutes.map(item => {
     const routerItem = {}
-    routerItem.name = !item.parent && !item.nodes ? null : item.tag.code
-    routerItem.path = !item.parent && !item.nodes ? path.join('/', item.tag.url) : path.join(!item.parent ? '/' : '', item.tag.url)
+    routerItem.name = !item.parent && (item && item.nodes.length === 0 || !item) ? null : item.tag.code
+    routerItem.path = !item.parent && (item && item.nodes.length === 0 || !item) ? path.join('/', item.tag.url) : path.join(!item.parent ? '/' : '', item.tag.url)
     routerItem.component = !item.parent ? Layout : () => import(`@/views/${item.tag.component}`)
     routerItem.meta = { 'title': item.tag.name, 'icon': item.tag.icon, 'activeMenu': item.tag.active_menu }
     routerItem.hidden = item.tag.hidden || false
     routerItem.alwaysShow = false
-    routerItem.children = !item.parent && !item.nodes ? [{
+    routerItem.children = !item.parent && (item && item.nodes.length === 0 || !item) ? [{
       path: 'index',
       name: item.tag.code,
       hidden: item.tag.hidden || false,
@@ -74,6 +73,7 @@ const actions = {
       return api.sysMenu.sidebar().then(res => {
         const { data: menuTree } = res
         const accessedRoutes = buildRouters(menuTree)
+        console.log('----------', accessedRoutes)
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
       })

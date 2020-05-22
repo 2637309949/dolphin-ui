@@ -77,7 +77,6 @@ const actions = {
   addCachedView({ commit }, view) {
     commit('ADD_CACHED_VIEW', view)
   },
-
   delView({ dispatch, state }, view) {
     return new Promise(resolve => {
       dispatch('delVisitedView', view)
@@ -100,7 +99,6 @@ const actions = {
       resolve([...state.cachedViews])
     })
   },
-
   delOthersViews({ dispatch, state }, view) {
     return new Promise(resolve => {
       dispatch('delOthersVisitedViews', view)
@@ -123,7 +121,6 @@ const actions = {
       resolve([...state.cachedViews])
     })
   },
-
   delAllViews({ dispatch, state }, view) {
     return new Promise(resolve => {
       dispatch('delAllVisitedViews', view)
@@ -146,7 +143,6 @@ const actions = {
       resolve([...state.cachedViews])
     })
   },
-
   updateVisitedView({ commit }, view) {
     commit('UPDATE_VISITED_VIEW', view)
   }

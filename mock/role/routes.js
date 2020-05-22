@@ -114,19 +114,6 @@ export const asyncRoutes = [
   },
 
   {
-    path: '/icon',
-    component: 'layout/Layout',
-    children: [
-      {
-        path: 'index',
-        component: 'views/icons/index',
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
-
-  {
     path: '/components',
     component: 'layout/Layout',
     redirect: 'noRedirect',
@@ -430,22 +417,6 @@ export const asyncRoutes = [
         component: 'views/excel/upload-excel',
         name: 'UploadExcel',
         meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
-
-  {
-    path: '/zip',
-    component: 'layout/Layout',
-    redirect: '/zip/download',
-    alwaysShow: true,
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'download',
-        component: 'views/zip/index',
-        name: 'ExportZip',
-        meta: { title: 'Export Zip' }
       }
     ]
   },
