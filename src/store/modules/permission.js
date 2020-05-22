@@ -2,6 +2,8 @@ import { constantRoutes } from '@/router'
 import api from '@/api'
 import path from 'path'
 import Layout from '@/layout'
+import router, { resetRouter } from '@/router'
+
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -84,6 +86,26 @@ const actions = {
       // }
       // commit('SET_ROUTES', accessedRoutes)
       // resolve(accessedRoutes)
+    })
+  },
+
+  // dynamically modify routes
+  resetRoutes({ commit, dispatch }) {
+    return new Promise(async resolve => {
+      const { roles } = await dispatch('user/getInfo', null, { root: true })
+
+      resetRouter()
+
+      // generate accessible routes map based on roles
+      const accessRoutes = await dispatch('generateRoutes', roles)
+
+      // dynamically add accessible routes
+      router.addRoutes(accessRoutes)
+
+      // reset visited views and cached views
+      dispatch('tagsView/delAllViews', null, { root: true })
+
+      resolve()
     })
   }
 }

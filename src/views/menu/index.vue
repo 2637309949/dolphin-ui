@@ -238,6 +238,7 @@ export default {
               type: 'success'
             })
             this.$refs.qtable.getData()
+            this.$store.dispatch('permission/resetRoutes')
           })
         }
       })
@@ -253,6 +254,7 @@ export default {
               type: 'success'
             })
             this.$refs.qtable.getData()
+            this.$store.dispatch('permission/resetRoutes')
           })
         }
       })
@@ -273,6 +275,7 @@ export default {
             type: 'success'
           })
           this.$refs.qtable.getData()
+          this.$store.dispatch('permission/resetRoutes')
         })
       })
     },
@@ -285,11 +288,12 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$api.sysMenu.batchDel(ids).then(res => {
-          this.$refs.qtable.getData()
           this.$message({
             message: 'successfully deleted',
             type: 'success'
           })
+          this.$refs.qtable.getData()
+          this.$store.dispatch('permission/resetRoutes')
         })
       })
     },
