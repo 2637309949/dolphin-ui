@@ -31,15 +31,7 @@
             </el-form>
           </el-header>
           <el-main>
-            <sheet
-              ref="qtable"
-              :api="this.$api.sysRole.page"
-              :columns="tableColumns"
-              :data-query="dataQuery"
-              :operates="operates"
-              :float-type="'right'"
-              :select-type="'selection'"
-            />
+            <sheet ref="qtable" :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
           </el-main>
         </el-container>
       </el-card>

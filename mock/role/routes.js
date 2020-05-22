@@ -290,51 +290,6 @@ export const asyncRoutes = [
   },
 
   {
-    path: '/example',
-    component: 'layout/Layout',
-    redirect: '/example/list',
-    name: 'Example',
-    meta: {
-      title: 'Example',
-      icon: 'example'
-    },
-    children: [
-      {
-        path: 'create',
-        component: 'views/example/create',
-        name: 'CreateArticle',
-        meta: { title: 'Create Article', icon: 'edit' }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: 'views/example/edit',
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: 'views/example/list',
-        name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
-      }
-    ]
-  },
-
-  {
-    path: '/tab',
-    component: 'layout/Layout',
-    children: [
-      {
-        path: 'index',
-        component: 'views/tab/index',
-        name: 'Tab',
-        meta: { title: 'Tab', icon: 'tab' }
-      }
-    ]
-  },
-
-  {
     path: '/error',
     component: 'layout/Layout',
     redirect: 'noRedirect',
@@ -406,66 +361,6 @@ export const asyncRoutes = [
         component: 'views/excel/upload-excel',
         name: 'UploadExcel',
         meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
-
-  {
-    path: '/pdf',
-    component: 'layout/Layout',
-    redirect: '/pdf/index',
-    children: [
-      {
-        path: 'index',
-        component: 'views/pdf/index',
-        name: 'PDF',
-        meta: { title: 'PDF', icon: 'pdf' }
-      }
-    ]
-  },
-  {
-    path: '/pdf/download',
-    component: 'views/pdf/download',
-    hidden: true
-  },
-
-  {
-    path: '/theme',
-    component: 'layout/Layout',
-    redirect: 'noRedirect',
-    children: [
-      {
-        path: 'index',
-        component: 'views/theme/index',
-        name: 'Theme',
-        meta: { title: 'Theme', icon: 'theme' }
-      }
-    ]
-  },
-
-  {
-    path: '/clipboard',
-    component: 'layout/Layout',
-    redirect: 'noRedirect',
-    children: [
-      {
-        path: 'index',
-        component: 'views/clipboard/index',
-        name: 'ClipboardDemo',
-        meta: { title: 'Clipboard Demo', icon: 'clipboard' }
-      }
-    ]
-  },
-
-  {
-    path: '/i18n',
-    component: 'layout/Layout',
-    children: [
-      {
-        path: 'index',
-        component: 'views/i18n-demo/index',
-        name: 'I18n',
-        meta: { title: 'I18n', icon: 'international' }
       }
     ]
   },
