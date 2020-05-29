@@ -13,12 +13,12 @@ export const constantRoutes = [
   },
   {
     path: '/404',
-    component: 'views/error-page/404',
+    component: 'views/errors/404',
     hidden: true
   },
   {
     path: '/401',
-    component: 'views/error-page/401',
+    component: 'views/errors/401',
     hidden: true
   },
   {
@@ -301,13 +301,13 @@ export const asyncRoutes = [
     children: [
       {
         path: '401',
-        component: 'views/error-page/401',
+        component: 'views/errors/401',
         name: 'Page401',
         meta: { title: 'Page 401', noCache: true }
       },
       {
         path: '404',
-        component: 'views/error-page/404',
+        component: 'views/errors/404',
         name: 'Page404',
         meta: { title: 'Page 404', noCache: true }
       }
