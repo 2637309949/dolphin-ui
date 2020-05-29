@@ -71,13 +71,13 @@
           <cascader :api="this.$api.sysMenu.tree" :data-query="nodeQuery" :value.sync="temp.parent" />
         </el-form-item>
         <el-form-item label="Hidden:" prop="hidden">
-          <el-radio v-model="temp.hidden" :label="1">是</el-radio>
-          <el-radio v-model="temp.hidden" :label="0">否</el-radio>
+          <el-radio v-model="temp.hidden" :label="1">{{ $t('common.yes') }}</el-radio>
+          <el-radio v-model="temp.hidden" :label="0">{{ $t('common.no') }}</el-radio>
         </el-form-item>
       </el-form>
       <footer slot="footer" class="dialog-footer">
-        <el-button :size="size" @click="dialogVisible = false">Cancel</el-button>
-        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">Confirm
+        <el-button :size="size" @click="dialogVisible = false">{{ $t('common.cancel') }}</el-button>
+        <el-button :size="size" type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('common.confirm') }}
         </el-button>
       </footer>
     </el-dialog>

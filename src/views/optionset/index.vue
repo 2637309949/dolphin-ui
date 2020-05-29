@@ -7,13 +7,13 @@
             <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
               <el-row :gutter="20">
                 <el-col :span="6">
-                  <el-form-item label="名称:" class="notice-input" label-width="60px" prop="name">
-                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
+                  <el-form-item label="Name:" class="notice-input" label-width="60px" prop="name">
+                    <el-input v-model="dataQuery.name" placeholder="Please input Name" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="编码:" class="notice-input" label-width="60px" prop="code">
-                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
+                  <el-form-item label="Code:" class="notice-input" label-width="60px" prop="code">
+                    <el-input v-model="dataQuery.code" placeholder="Please input Code" clearable @keyup.enter.native="search" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" style="text-align: right">
@@ -47,16 +47,16 @@
 
     <el-dialog :title="dialogStatus==='create'? $t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="40%" @close="dialogClose">
       <el-form ref="temp" :size="size" :rules="rules" :model="temp" label-width="120px">
-        <el-form-item label="名称:" prop="name">
-          <el-input v-model="temp.name" :size="size" placeholder="请输入名称" />
+        <el-form-item label="Name:" prop="name">
+          <el-input v-model="temp.name" :size="size" placeholder="Please input Name" />
         </el-form-item>
-        <el-form-item label="编码:" prop="code">
-          <el-input v-model="temp.code" :size="size" placeholder="请输入编码" />
+        <el-form-item label="Code:" prop="code">
+          <el-input v-model="temp.code" :size="size" placeholder="Please input Code" />
         </el-form-item>
-        <el-form-item label="备注:" prop="remark">
-          <el-input v-model="temp.remark" :size="size" placeholder="请输入备注" />
+        <el-form-item label="Remark:" prop="remark">
+          <el-input v-model="temp.remark" :size="size" placeholder="Please input Remark" />
         </el-form-item>
-        <el-form-item label="键值对:" label-position="right" label-width="120px" class="notice-input" prop="maps">
+        <el-form-item label="Key&Value:" label-position="right" label-width="120px" class="notice-input" prop="maps">
           <div v-for="(item, index) in maps" :key="index" style="width: 100%; float: left; margin-bottom: 5px;" type="flex">
             <div style="width: 15%; float: left">
               <el-input v-model="item.value" placeholder="value" />
@@ -101,21 +101,21 @@ export default {
       tableColumns: [
         {
           prop: 'name',
-          label: '名称',
+          label: 'Name',
           align: 'center',
           minWidth: 180,
           maxWidth: 220
         },
         {
           prop: 'code',
-          label: '编码',
+          label: 'Code',
           align: 'center',
           minWidth: 150,
           maxWidth: 180
         },
         {
           prop: 'remark',
-          label: '备注',
+          label: 'Remark',
           align: 'center',
           minWidth: 150,
           maxWidth: 180
@@ -124,7 +124,7 @@ export default {
       operates: {
         list: [
           {
-            label: '编辑',
+            label: 'Edit',
             show: true,
             type: 'primary',
             method: row => {
@@ -132,7 +132,7 @@ export default {
             }
           },
           {
-            label: '删除',
+            label: 'Del',
             show: true,
             type: 'danger',
             method: row => {
@@ -149,8 +149,8 @@ export default {
         code: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入编码', trigger: 'blur' }]
+        name: [{ required: true, message: 'Please input Name', trigger: 'blur' }],
+        code: [{ required: true, message: 'Please input Code', trigger: 'blur' }]
       },
       temp: {
         id: undefined,
@@ -180,7 +180,7 @@ export default {
           this.$api.system.AddOptionset(this.temp).then(res => {
             this.dialogVisible = false
             this.$message({
-              message: '创建成功',
+              message: 'Created successfully',
               type: 'success'
             })
             this.$refs.qtable.getData()
@@ -195,7 +195,7 @@ export default {
           this.$api.sysOptionset.update(this.temp).then(res => {
             this.dialogVisible = false
             this.$message({
-              message: '修改成功',
+              message: 'modified successful',
               type: 'success'
             })
             this.$refs.qtable.getData()
@@ -204,13 +204,13 @@ export default {
       })
     },
     deleteData(row) {
-      this.$confirm('确认删除？', '提示', {
+      this.$confirm('Confirm deletion?', 'Tips', {
         type: 'warning'
       }).then(() => {
         this.$api.system.DelOptionset([{ id: row.id }]).then(res => {
           this.$refs.qtable.getData()
           this.$message({
-            message: '删除成功',
+            message: 'Removal successful',
             type: 'success'
           })
         })
@@ -218,13 +218,13 @@ export default {
     },
     deleteBatch() {
       const ids = this.$refs.qtable.multipleSelection.map(row => ({ id: row.id }))
-      this.$confirm('确认批量删除选中数据吗？', '提示', {
+      this.$confirm('Do you confirm bulk deletion of selected data?', 'Tips', {
         type: 'warning'
       }).then(() => {
         this.$api.system.DelOptionset(ids).then(res => {
           this.$refs.qtable.getData()
           this.$message({
-            message: '删除成功',
+            message: 'Removal successful',
             type: 'success'
           })
         })

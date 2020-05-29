@@ -9,7 +9,9 @@ export default {
     cancel: '「キャンセル」',
     reset: 'リセット',
     export: '書き出す',
-    updatePassword: 'パスワードを更新する'
+    updatePassword: 'パスワードを更新する',
+    yes: 'はい',
+    no: '番号'
   },
   route: {
     'Dashboard': 'トップ',

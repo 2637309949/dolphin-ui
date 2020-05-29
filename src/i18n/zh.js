@@ -9,7 +9,9 @@ export default {
     cancel: '取消',
     reset: '重置',
     export: '导出',
-    updatePassword: '更新密码'
+    updatePassword: '更新密码',
+    yes: '是',
+    no: '否'
   },
   route: {
     'Dashboard': '首页',

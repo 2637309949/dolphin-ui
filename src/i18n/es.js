@@ -9,7 +9,9 @@ export default {
     cancel: 'Cancelar',
     reset: 'Reiniciar',
     export: 'Exportar',
-    updatePassword: 'Actualiza contraseña'
+    updatePassword: 'Actualiza contraseña',
+    yes: 'Si',
+    no: 'No'
   },
   route: {
     'Dashboard': 'Panel de control',

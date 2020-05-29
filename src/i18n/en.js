@@ -9,7 +9,9 @@ export default {
     reset: 'Reset',
     cancel: 'Cancel',
     export: 'Export',
-    updatePassword: 'UpdatePassword'
+    updatePassword: 'UpdatePassword',
+    yes: 'Yes',
+    no: 'No'
   },
   route: {
     'Dashboard': 'Dashboard',
