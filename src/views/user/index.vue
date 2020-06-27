@@ -8,6 +8,7 @@
           </el-aside>
           <el-container>
             <el-header height="82">
+              <query ref="searchForm2" :form-config="query1" @onSubmit="search" />
               <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
                 <el-row :gutter="20">
                   <el-col :span="6">
@@ -115,14 +116,18 @@ import checkPermission from '@/utils/permission'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import ExportButton from '@/components/ExportButton'
+import Query from '@/components/Query'
+import { user } from './query'
 
 export default {
   name: 'User',
   components: {
     Tree,
     Sheet,
-    ExportButton
+    ExportButton,
+    Query
   },
+  mixins: [user],
   data() {
     return {
       tableColumns: [
@@ -378,8 +383,8 @@ export default {
         })
       }).catch(() => {})
     },
-    search() {
-      this.$refs.qtable.getData()
+    search(obj) {
+      return this.$refs.qtable.getData(obj)
     },
     resetFields() {
       this.$refs['searchForm'].resetFields()

@@ -10,7 +10,7 @@
       :selection-data="selectionData"
       :height="tableMaxHeight"
       @selection-change="selectionChange"
-@row-click="rowdata"
+      @row-click="rowdata"
       @cell-mouse-enter="cellMouseEnter"
     >
       <el-table-column fixed :type="selectType" align="center" width="50" />
@@ -29,7 +29,6 @@
           <template slot-scope="scope">
             <template v-if="!column.render">
               <template v-if="typeof column.formatter == 'string'">
-                <!--<span v-html="column.formatter(scope.row, column)" />-->
                 <span v-html="formatter(scope.row, column)" />
               </template>
               <template v-else-if="typeof column.formatter == 'function'">
@@ -105,6 +104,8 @@
 </template>
 <script>
 import { scrollTo } from '@/utils/scroll-to'
+import download from '@/utils/download'
+
 export default {
   name: 'Sheet',
   props: {
@@ -197,11 +198,6 @@ export default {
     this.getData()
   },
   methods: {
-    search(obj) {
-      this.dataQuery.page = 1
-      Object.assign(this.dataQuery, obj)
-      this.getData()
-    },
     cellMouseEnter(row, column) {
       this.$emit('cell-mouse-enter', row, column)
     },
@@ -229,32 +225,67 @@ export default {
       this.selectionData = selection
       this.$emit('update:selectionData', selection)
     },
-    async getData() {
+    checkFunc(data) {
+      return typeof data === 'function' ? data() : data
+    },
+    deepCopy(data) {
+      if (typeof data !== 'object') {
+        return data
+      }
+      if (Array.isArray(data)) {
+        return data.map(this.deepCopy)
+      }
+      const copyData = {}
+      for (const [key, value] of Object.entries(data)) {
+        copyData[key] = this.deepCopy(value)
+      }
+      return copyData
+    },
+    getExportColumns() {
+      const columns = this.deepCopy(this.checkFunc(this.columns))
+      return columns
+        .filter(column => typeof column.show === 'undefined' || column.show)
+        .map(column => {
+          if (column.width) {
+            column.width = column.width * 0.125 || 0
+          }
+          return column
+        })
+    },
+    async getData(obj = {}) {
+      const dataQuery = Object.assign(this.dataQuery, obj)
       const codes = []
       this.columns.forEach(item => {
-        if (
-          item.formatter !== undefined &&
-          typeof item.formatter === 'string'
-        ) {
+        if (item.formatter !== undefined && typeof item.formatter === 'string') {
           codes.push(item.formatter)
         }
       })
       for (var i = 0; i < codes.length; i++) {
         this.optionsets[codes[i]] = await this.$store.dispatch('optionset/formatterData', codes[i])
       }
-      this.dataLoading = true
-      this.dataQuery
-      this.api(this.dataQuery).then(res => {
-        if (res.code === 200) {
-          this.page.dataTotal = res.data.totalrecords
-          this.tableData = res.data.data
-          this.$emit('callBack', res.data.content)
-        } else {
-          this.page.dataTotal = 0
-          this.tableData = []
-        }
-        this.dataLoading = false
-      }).catch(() => {})
+      if (dataQuery.__export__) {
+        this.isExporting = true
+        dataQuery.__columns__ = JSON.stringify(this.getExportColumns())
+        this.api(dataQuery).then(({ data }) => {
+          download(data).then(() => {
+            this.isExporting = false
+          })
+        })
+      } else {
+        this.dataLoading = true
+        this.api(dataQuery).then(res => {
+          if (res.code === 200) {
+            this.page.dataTotal = res.data.totalrecords
+            this.tableData = res.data.data
+            this.$emit('callBack', res.data.content)
+          } else {
+            this.page.dataTotal = 0
+            this.tableData = []
+          }
+          this.dataLoading = false
+          return res
+        })
+      }
     },
     sizeChange(val) {
       scrollTo(0, 600)
