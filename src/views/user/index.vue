@@ -8,35 +8,7 @@
           </el-aside>
           <el-container>
             <el-header height="82">
-              <query ref="searchForm2" :form-config="query1" @onSubmit="search" />
-              <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
-                <el-row :gutter="20">
-                  <el-col :span="6">
-                    <el-form-item label="Mobile:" prop="mobile" class="notice-input" label-width="60px">
-                      <el-input v-model="dataQuery.mobile" placeholder="Please enter your account" clearable @keyup.enter.native="search" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-form-item label="Name:" prop="name" class="notice-input" label-width="60px">
-                      <el-input v-model="dataQuery.name" placeholder="Please enter the name" clearable @keyup.enter.native="search" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12" style="text-align: right">
-                    <el-form-item>
-                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
-                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
-                      <export-button :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" name="users.xlsx" />
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}
-                  </el-button>
-                  <el-button v-if="checkPermission(['update_password'])" type="success" icon="el-icon-edit" :size="size" @click="updatePassword">{{ $t('common.updatePassword') }}
-                  </el-button>
-                  <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
-                </el-row>
-              </el-form>
+              <query ref="searchForm" :form-config="query" @onSubmit="search" />
             </el-header>
             <el-main class="table-main">
               <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" />
@@ -115,7 +87,6 @@ import { deepClone } from '@/utils/index'
 import checkPermission from '@/utils/permission'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
-import ExportButton from '@/components/ExportButton'
 import Query from '@/components/Query'
 import { user } from './query'
 
@@ -124,7 +95,6 @@ export default {
   components: {
     Tree,
     Sheet,
-    ExportButton,
     Query
   },
   mixins: [user],

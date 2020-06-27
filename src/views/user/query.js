@@ -1,7 +1,7 @@
 export const user = {
   data() {
     return {
-      query1: {
+      query: {
         export: {
           name: 'users.xlsx',
           rows: 1000

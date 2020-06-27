@@ -105,6 +105,7 @@
 <script>
 import { scrollTo } from '@/utils/scroll-to'
 import download from '@/utils/download'
+import { deepClone } from '@/utils/index'
 
 export default {
   name: 'Sheet',
@@ -253,7 +254,7 @@ export default {
         })
     },
     async getData(obj = {}) {
-      const dataQuery = Object.assign(this.dataQuery, obj)
+      const dataQuery = Object.assign(deepClone(this.dataQuery), obj)
       const codes = []
       this.columns.forEach(item => {
         if (item.formatter !== undefined && typeof item.formatter === 'string') {
