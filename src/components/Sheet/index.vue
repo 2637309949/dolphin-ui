@@ -93,7 +93,7 @@
         :class="floatType"
         :current-page="dataQuery.page"
         :page-sizes="page.pageSizes"
-        :page-size="dataQuery.rows"
+        :page-size="dataQuery.size"
         layout="total, sizes, prev, pager, next, jumper"
         :total="page.dataTotal"
         @size-change="sizeChange"
@@ -149,7 +149,7 @@ export default {
     dataQuery: {
       type: Object,
       default: () => {
-        return { page: 1, rows: 10 }
+        return { page: 1, size: 10 }
       }
     },
     page: {
@@ -290,7 +290,7 @@ export default {
     },
     sizeChange(val) {
       scrollTo(0, 600)
-      this.dataQuery.rows = val
+      this.dataQuery.size = val
       this.dataQuery.page = 1
       this.getData()
     },

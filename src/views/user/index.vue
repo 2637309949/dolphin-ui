@@ -118,7 +118,7 @@ export default {
       },
       dataQuery: {
         page: 1,
-        rows: 10,
+        size: 10,
         name: '',
         cn_org_id: ''
       },
@@ -201,7 +201,7 @@ export default {
       this.temp_items[dataIndex].value.push(obj)
     },
     getTempDetail(temp_id) {
-      this.$api.sysUserTemplate.page({ page: 1, rows: 100, 'temp_id': temp_id }).then(res => {
+      this.$api.sysUserTemplate.page({ page: 1, size: 100, 'temp_id': temp_id }).then(res => {
         this.temp_items = res.data.data
         var tempValue
         if (this.temp.temp_value !== '' && this.temp.temp_value !== undefined) {
@@ -231,7 +231,7 @@ export default {
       })
     },
     FindUserTempl() {
-      this.$api.sysUserTemplate.page({ page: 1, rows: 100 }).then(res => {
+      this.$api.sysUserTemplate.page({ page: 1, size: 100 }).then(res => {
         if (res.code === 200) {
           this.templs = res.data.content
         }

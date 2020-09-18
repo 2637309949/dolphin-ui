@@ -33,7 +33,7 @@ export default {
         return () => {}
       }
     },
-    rows: {
+    size: {
       type: Number,
       default: 10000
     }

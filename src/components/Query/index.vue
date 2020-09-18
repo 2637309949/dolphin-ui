@@ -206,7 +206,7 @@ export default {
       default: () => {
         return {
           export: {
-            rows: 1000
+            size: 1000
           },
           items: []
         }

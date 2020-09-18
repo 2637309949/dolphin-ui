@@ -4,7 +4,7 @@ export const user = {
       query: {
         export: {
           name: 'users.xlsx',
-          rows: 1000
+          size: 1000
         },
         items: [
           {

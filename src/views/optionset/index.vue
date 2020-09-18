@@ -114,7 +114,7 @@ export default {
       },
       dataQuery: {
         page: 1,
-        rows: 10,
+        size: 10,
         name: '',
         code: ''
       },

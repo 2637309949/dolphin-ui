@@ -1,9 +1,9 @@
-export const role = {
+export const tracker = {
   data() {
     return {
       query: {
         export: {
-          name: 'roles.xlsx',
+          name: 'trackers.xlsx',
           size: 1000
         },
         items: [

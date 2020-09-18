@@ -180,7 +180,7 @@ export default {
       },
       dataQuery: {
         page: 1,
-        rows: 10,
+        size: 10,
         __sort__: 'sys_user_template_detail.priority asc',
         temp_id: '',
         name: '',

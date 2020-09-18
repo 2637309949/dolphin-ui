@@ -4,7 +4,7 @@ export const org = {
       query: {
         export: {
           name: 'orgs.xlsx',
-          rows: 1000
+          size: 1000
         },
         items: [
           {

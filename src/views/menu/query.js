@@ -1,9 +1,9 @@
-export const role = {
+export const menu = {
   data() {
     return {
       query: {
         export: {
-          name: 'roles.xlsx',
+          name: 'menus.xlsx',
           size: 1000
         },
         items: [

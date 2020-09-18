@@ -4,27 +4,7 @@
       <el-card>
         <el-container>
           <el-header height="120">
-            <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
-              <el-row :gutter="20">
-                <el-col :span="6">
-                  <el-form-item :label="$t('tracker.name').concat(':')" class="notice-input" label-width="60px" prop="name">
-                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('tracker.code').concat(':')" class="notice-input" label-width="60px" prop="code">
-                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12" style="text-align: right">
-                  <el-form-item>
-                    <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
-                    <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
-                    <export-button :api="this.$api.sysTracker.page" :columns="tableColumns" :data-query="dataQuery" name="tracker.xlsx" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
+            <query ref="searchForm" :form-config="query" @onSubmit="search" />
           </el-header>
           <el-main>
             <sheet ref="qtable" :api="this.$api.sysTracker.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
@@ -57,15 +37,18 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 import Sheet from '@/components/Sheet/index'
-import ExportButton from '@/components/ExportButton'
+import Query from '@/components/Query'
+import { tracker } from './query'
 
 export default {
   name: 'Tracker',
   components: {
     Sheet,
-    ExportButton
+    Query
   },
+  mixins: [tracker],
   data() {
     return {
       maps: [{ value: '', text: '' }],
@@ -89,7 +72,10 @@ export default {
           label: 'ReqTime',
           align: 'center',
           minWidth: 150,
-          maxWidth: 180
+          maxWidth: 180,
+          formatter: (row, column) => {
+            return moment(row.create_time).format('YYYY/MM/DD HH:mm:ss')
+          }
         },
         {
           prop: 'path',
@@ -124,7 +110,7 @@ export default {
       },
       dataQuery: {
         page: 1,
-        rows: 10,
+        size: 10,
         name: '',
         code: ''
       },
@@ -159,8 +145,8 @@ export default {
   },
   created() {},
   methods: {
-    search() {
-      this.$refs.qtable.getData()
+    search(obj) {
+      this.$refs.qtable.getData(obj)
     },
     resetFields() {
       this.$refs['searchForm'].resetFields()

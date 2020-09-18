@@ -4,7 +4,7 @@ export const optionset = {
       query: {
         export: {
           name: 'optionsets.xlsx',
-          rows: 1000
+          size: 1000
         },
         items: [
           {
