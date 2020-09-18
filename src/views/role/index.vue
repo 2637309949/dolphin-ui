@@ -4,31 +4,7 @@
       <el-card>
         <el-container>
           <el-header height="120">
-            <el-form ref="searchForm" :size="size" label-position="left" label-width="80px">
-              <el-row :gutter="20">
-                <el-col :span="6">
-                  <el-form-item label="名称:" class="notice-input" label-width="60px">
-                    <el-input v-model="dataQuery.name" placeholder="请输入名称" clearable @keyup.enter.native="search" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item label="编码:" class="notice-input" label-width="60px">
-                    <el-input v-model="dataQuery.code" placeholder="请输入编码" clearable @keyup.enter.native="search" />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12" style="text-align: right">
-                  <el-form-item>
-                    <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
-                    <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
-                    <export-button :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" name="roles.xlsx" />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}</el-button>
-                <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
-              </el-row>
-            </el-form>
+            <query ref="searchForm" :form-config="query" @onSubmit="search" />
           </el-header>
           <el-main>
             <sheet ref="qtable" :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
@@ -101,15 +77,17 @@ import { mapGetters } from 'vuex'
 import { deepClone } from '@/utils/index'
 import Sheet from '@/components/Sheet'
 import treeTransfer from 'el-tree-transfer'
-import ExportButton from '@/components/ExportButton'
+import Query from '@/components/Query'
+import { role } from './query'
 
 export default {
   name: 'Role',
   components: {
     Sheet,
     treeTransfer,
-    ExportButton
+    Query
   },
+  mixins: [role],
   data() {
     return {
       menu: [],
@@ -356,8 +334,8 @@ export default {
       })
         .catch(() => {})
     },
-    search() {
-      this.$refs.qtable.getData()
+    search(obj) {
+      this.$refs.qtable.getData(obj)
     },
     resetFields() {
       this.$refs['searchForm'].resetFields()

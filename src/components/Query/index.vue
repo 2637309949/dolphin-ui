@@ -92,8 +92,8 @@
         <el-button v-if="folding" :size="size" @click="show = !show">
           {{ show ? "折叠" : "展开" }}
         </el-button>
-        <el-button type="primary" :size="size" @click.prevent="onSubmit">查询</el-button>
-        <el-button :size="size" @click="resetForm()">重置</el-button>
+        <el-button type="primary" :size="size" @click.prevent="onSubmit">{{ $t('common.search') }}</el-button>
+        <el-button :size="size" @click="resetForm()">{{ $t('common.reset') }}</el-button>
         <el-button :loading="isExporting" type="primary" :size="size" @click="onExport">{{ $t('common.export') }}</el-button>
       </el-col>
     </el-row>

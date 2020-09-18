@@ -8,42 +8,10 @@
           </el-aside>
           <el-container>
             <el-header height="120">
-              <el-form ref="searchForm" :model="dataQuery" :size="size" label-position="left" label-width="80px">
-                <el-row :gutter="20">
-                  <el-col :span="6">
-                    <el-form-item label="Name:" class="notice-input" label-width="60px" prop="name">
-                      <el-input v-model="dataQuery.name" placeholder="Please input name" clearable @keyup.enter.native="search" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-form-item label="Code:" class="notice-input" label-width="60px" prop="code">
-                      <el-input v-model="dataQuery.code" placeholder="Please input code" clearable @keyup.enter.native="search" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12" style="text-align: right">
-                    <el-form-item>
-                      <el-button type="primary" icon="el-icon-search" :size="size" @click="search">{{ $t('common.search') }}</el-button>
-                      <el-button icon="el-icon-refresh" :size="size" @click="resetFields">{{ $t('common.reset') }}</el-button>
-                      <export-button :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" name="org.xlsx" />
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-button type="primary" icon="el-icon-plus" :size="size" @click="create">{{ $t('common.create') }}</el-button>
-                  <el-button :size="size" @click="deleteBatch">{{ $t('common.batchDelete') }}</el-button>
-                </el-row>
-              </el-form>
+              <query ref="searchForm" :form-config="query" @onSubmit="search" />
             </el-header>
             <el-main class="table-main">
-              <sheet
-                ref="qtable"
-                :api="this.$api.sysOrg.page"
-                :columns="tableColumns"
-                :data-query="dataQuery"
-                :operates="operates"
-                :float-type="'right'"
-                :select-type="'selection'"
-              />
+              <sheet ref="qtable" :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
             </el-main>
           </el-container>
         </el-container>
@@ -91,7 +59,6 @@
         </el-button>
       </footer>
     </el-dialog>
-
   </el-container>
 </template>
 
@@ -100,7 +67,8 @@ import { mapGetters } from 'vuex'
 import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import Cascader from '@/components/Cascader'
-import ExportButton from '@/components/ExportButton'
+import Query from '@/components/Query'
+import { org } from './query'
 
 export default {
   name: 'Org',
@@ -108,8 +76,9 @@ export default {
     Tree,
     Sheet,
     Cascader,
-    ExportButton
+    Query
   },
+  mixins: [org],
   data() {
     return {
       tableColumns: [
@@ -265,8 +234,8 @@ export default {
         }
       })
     },
-    search() {
-      this.$refs.qtable.getData()
+    search(obj) {
+      return this.$refs.qtable.getData(obj)
     },
     resetFields() {
       this.$refs['searchForm'].resetFields()
