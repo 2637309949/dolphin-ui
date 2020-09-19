@@ -226,7 +226,7 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
+$bg:rgb(157, 207, 255);
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
