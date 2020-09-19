@@ -23,6 +23,7 @@ export default {
     'OptionSet': '选项',
     'Menu': '菜单',
     'Scheduling': '调度',
+    'Attachment': '附件',
     'Tracker': '日志',
     'Documentation': '文档',
     'Guide': '引导页',

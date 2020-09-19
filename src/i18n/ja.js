@@ -23,6 +23,7 @@ export default {
     'OptionSet': 'オプション',
     'Menu': 'メニュー',
     'Scheduling': 'スケジューラー',
+    'Attachment': '別添',
     'Tracker': 'ログ',
     'Documentation': 'ドキュメント',
     'Guide': 'ガイド',

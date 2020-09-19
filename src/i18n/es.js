@@ -23,6 +23,7 @@ export default {
     'OptionSet': 'Opcional',
     'Menu': 'Menú',
     'Scheduling': 'Planificador',
+    'Attachment': 'Adjunto archivo',
     'Tracker': 'Iniciar sesión',
     'Documentation': 'Documentación',
     'Guide': 'Guía',

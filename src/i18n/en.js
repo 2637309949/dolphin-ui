@@ -23,6 +23,7 @@ export default {
     'OptionSet': 'OptionSet',
     'Menu': 'Menu',
     'Scheduling': 'Scheduling',
+    'Attachment': 'Attachment',
     'Tracker': 'Tracker',
     'Documentation': 'Documentation',
     'Guide': 'Guide',
