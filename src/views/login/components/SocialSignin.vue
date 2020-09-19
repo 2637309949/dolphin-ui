@@ -43,6 +43,8 @@ export default {
     .sign-btn {
       display: inline-block;
       cursor: pointer;
+      color: #fff;
+      font-size: 14px;
     }
     .icon {
       color: #fff;
@@ -52,21 +54,14 @@ export default {
     .wx-svg-container,
     .qq-svg-container {
       display: inline-block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
       text-align: center;
       padding-top: 1px;
       border-radius: 4px;
       margin-bottom: 20px;
       margin-right: 5px;
-    }
-    .wx-svg-container {
-      background-color: #24da70;
-    }
-    .qq-svg-container {
-      background-color: #6BA2D6;
-      margin-left: 50px;
     }
   }
 </style>
