@@ -160,9 +160,9 @@ export default {
       this.temp = Object.assign({}, row)
       this.$api.sysTracker.get({ id: row.id }).then(res => {
         const { data: { header, res_body, req_body }} = res
-        this.temp.header = header && atob(header)
-        this.temp.res_body = res_body && atob(res_body)
-        this.temp.req_body = req_body && atob(req_body)
+        this.temp.header = header && decodeURIComponent(atob(header))
+        this.temp.res_body = res_body && JSON.stringify(JSON.parse(decodeURIComponent(atob(res_body))), null, '\t')
+        this.temp.req_body = req_body && JSON.stringify(JSON.parse(decodeURIComponent(atob(req_body))), null, '\t')
         this.dialogVisible = true
       })
     }
