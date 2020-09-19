@@ -80,7 +80,7 @@ export default {
         {
           prop: 'path',
           label: 'ReqPath',
-          align: 'center',
+          align: 'left',
           minWidth: 180,
           maxWidth: 180,
           formatter: (row, column) => {
