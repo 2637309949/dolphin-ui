@@ -1,5 +1,7 @@
 export default {
   common: {
+    pleaseInput: '请输入',
+    pleaseChoice: '请选择',
     create: '新增',
     delete: '删除',
     batchDelete: '批量删除',

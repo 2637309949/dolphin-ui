@@ -1,5 +1,7 @@
 export default {
   common: {
+    pleaseInput: '入ってください',
+    pleaseChoice: '選んでください',
     create: '作成',
     delete: '削除',
     batchDelete: '一括削除',

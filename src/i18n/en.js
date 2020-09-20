@@ -1,5 +1,7 @@
 export default {
   common: {
+    pleaseInput: 'Please input',
+    pleaseChoice: 'Please choice',
     create: 'New',
     delete: 'Delete',
     batchDelete: 'BatchDelete',

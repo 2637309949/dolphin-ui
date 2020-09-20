@@ -15,12 +15,12 @@
             :type="item.inputType"
             :rows="item.rows"
             :autosize="item.autosize"
-            :placeholder="`请填写${item.placeholder}`"
+            :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
             @keyup.enter.native="onSubmit"
           />
           <qselect
             v-else-if="item.type === 'select'"
-            :placeholder="`请选择${item.placeholder}`"
+            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
             :code="item.code"
             :remote-api="item.remoteApi"
             :filters="item.filters"
