@@ -52,7 +52,7 @@
             :value-format="item.valueFormat"
             :default-value="item.defaultValue"
             :default-time="item.defaultTime"
-            :placeholder="`请选择${item.placeholder}`"
+            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
             :picker-options="item.pickerOptions"
           />
           <el-time-select
@@ -61,7 +61,7 @@
             :style="item.style"
             :disabled="item.disabled"
             :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
-            :placeholder="`请选择${item.placeholder}`"
+            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
           />
           <div v-else-if="item.type === 'minmax'" class="minmax-box">
             <el-input-number
@@ -72,7 +72,7 @@
               class="minmax-input"
               :precision="item.precision"
               :disabled="item.disabled"
-              :placeholder="`请输入${item.minPlaceholder}`"
+              :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
             />
             <div class="division-line">-</div>
             <el-input-number
@@ -83,7 +83,7 @@
               :controls="false"
               :precision="item.precision"
               :disabled="item.disabled"
-              :placeholder="`请输入${item.maxPlaceholder}`"
+              :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
             />
           </div>
         </el-form-item>
@@ -112,13 +112,13 @@
               :type="item.inputType"
               :rows="item.rows"
               :autosize="item.autosize"
-              :placeholder="`请填写${item.placeholder}`"
+              :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
               clearable
               @keyup.enter.native="onSubmit"
             />
             <option-set
               v-else-if="item.type === 'select'"
-              :placeholder="`请选择${item.placeholder}`"
+              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
               :code="item.code"
               :remote-api="item.remoteApi"
               :filters="item.filters"
@@ -149,7 +149,7 @@
               :value-format="item.valueFormat"
               :default-value="item.defaultValue"
               :default-time="item.defaultTime"
-              :placeholder="`请选择${item.placeholder}`"
+              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
             />
             <el-time-select
               v-else-if="item.type === 'time'"
@@ -157,7 +157,7 @@
               :style="item.style"
               :disabled="item.disabled"
               :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
-              :placeholder="`请选择${item.placeholder}`"
+              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
             />
             <div v-else-if="item.type === 'minmax'" class="minmax-box">
               <el-input-number
@@ -168,7 +168,7 @@
                 class="minmax-input"
                 :precision="item.precision"
                 :disabled="item.disabled"
-                :placeholder="`请输入${item.minPlaceholder}`"
+                :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
               />
               <div class="division-line">-</div>
               <el-input-number
@@ -179,7 +179,7 @@
                 :controls="false"
                 :precision="item.precision"
                 :disabled="item.disabled"
-                :placeholder="`请输入${item.maxPlaceholder}`"
+                :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
               />
             </div>
           </el-form-item>

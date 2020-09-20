@@ -14,20 +14,20 @@
     </el-main>
 
     <el-dialog :title="$t('tracker.detail')" :visible.sync="dialogVisible" width="70%">
-      <el-form ref="form" label-width="80px">
-        <el-form-item :label="$t('tracker.ipAddress').concat(':')" class="notice-input" label-width="80px">
+      <el-form ref="form" label-width="120px">
+        <el-form-item :label="$t('tracker.ipAddress').concat(':')" class="notice-input" label-width="120px">
           <el-input v-model="temp.client_ip" />
         </el-form-item>
-        <el-form-item :label="$t('tracker.reqHeader').concat(':')" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqHeader').concat(':')" class="notice-input" label-width="120px">
           <el-input v-model="temp.header" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
-        <el-form-item :label="$t('tracker.reqAddress').concat(':')" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqAddress').concat(':')" class="notice-input" label-width="120px">
           <el-input v-model="temp.path" />
         </el-form-item>
-        <el-form-item :label="$t('tracker.reqContent').concat(':')" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.reqContent').concat(':')" class="notice-input" label-width="120px">
           <el-input v-model="temp.req_body" />
         </el-form-item>
-        <el-form-item :label="$t('tracker.resContent').concat(':')" class="notice-input" label-width="80px">
+        <el-form-item :label="$t('tracker.resContent').concat(':')" class="notice-input" label-width="120px">
           <el-input v-model="temp.res_body" type="textarea" :autosize="{minRows:4}" />
         </el-form-item>
       </el-form>
