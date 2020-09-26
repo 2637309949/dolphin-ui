@@ -89,6 +89,7 @@ import Tree from '@/components/Tree'
 import Sheet from '@/components/Sheet'
 import Query from '@/components/Query'
 import { user } from './query'
+import i18n from '@/i18n'
 
 export default {
   name: 'User',
@@ -101,12 +102,12 @@ export default {
   data() {
     return {
       tableColumns: [
-        { prop: 'name', label: 'Name', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'email', label: 'Email', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'mobile', label: 'Mobile', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'org_name', label: 'Org', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'role_name', label: 'Role', align: 'center', minWidth: 150, maxWidth: 180 },
-        { prop: 'status', formatter: 'sys_user_status', label: 'Status', align: 'center', minWidth: 150, maxWidth: 180 }
+        { prop: 'name', label: i18n.t('Name'), align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'email', label: i18n.t('Email'), align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'mobile', label: i18n.t('Mobile'), align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'org_name', label: i18n.t('Org'), align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'role_name', label: i18n.t('Role'), align: 'center', minWidth: 150, maxWidth: 180 },
+        { prop: 'status', formatter: 'sys_user_status', label: i18n.t('Status'), align: 'center', minWidth: 150, maxWidth: 180 }
       ],
       operates: {
         list: [

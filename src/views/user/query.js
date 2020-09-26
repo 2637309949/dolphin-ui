@@ -1,3 +1,5 @@
+import i18n from '@/i18n'
+
 export const user = {
   data() {
     return {
@@ -9,7 +11,7 @@ export const user = {
         items: [
           {
             name: 'mobile',
-            placeholder: 'Mobile',
+            placeholder: i18n.t('Mobile'),
             span: 4,
             style: '',
             type: '',
@@ -17,7 +19,7 @@ export const user = {
           },
           {
             name: 'name',
-            placeholder: 'Name',
+            placeholder: i18n.t('Name'),
             span: 4,
             style: '',
             type: '',

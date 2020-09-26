@@ -1,3 +1,5 @@
+import i18n from '@/i18n'
+
 export const org = {
   data() {
     return {
@@ -9,7 +11,7 @@ export const org = {
         items: [
           {
             name: 'name',
-            placeholder: 'Name',
+            placeholder: i18n.t('Name'),
             span: 4,
             style: '',
             type: '',
@@ -17,7 +19,7 @@ export const org = {
           },
           {
             name: 'code',
-            placeholder: 'Code',
+            placeholder: i18n.t('Code'),
             span: 4,
             style: '',
             type: '',

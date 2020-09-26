@@ -79,6 +79,7 @@ import Sheet from '@/components/Sheet'
 import treeTransfer from 'el-tree-transfer'
 import Query from '@/components/Query'
 import { role } from './query'
+import i18n from '@/i18n'
 
 export default {
   name: 'Role',
@@ -103,14 +104,14 @@ export default {
       tableColumns: [
         {
           prop: 'name',
-          label: '名称',
+          label: i18n.t('Name'),
           align: 'center',
           minWidth: 180,
           maxWidth: 220
         },
         {
           prop: 'code',
-          label: '编码',
+          label: i18n.t('Code'),
           align: 'center',
           minWidth: 150,
           maxWidth: 180
@@ -119,7 +120,7 @@ export default {
       operates: {
         list: [
           {
-            label: '编辑',
+            label: i18n.t('Edit'),
             show: true,
             type: 'primary',
             method: row => {
@@ -127,7 +128,7 @@ export default {
             }
           },
           {
-            label: '删除',
+            label: i18n.t('Delete'),
             show: true,
             type: 'danger',
             method: row => {

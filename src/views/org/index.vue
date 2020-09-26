@@ -69,6 +69,7 @@ import Sheet from '@/components/Sheet'
 import Cascader from '@/components/Cascader'
 import Query from '@/components/Query'
 import { org } from './query'
+import i18n from '@/i18n'
 
 export default {
   name: 'Org',
@@ -84,35 +85,35 @@ export default {
       tableColumns: [
         {
           prop: 'name',
-          label: 'Name',
+          label: i18n.t('Name'),
           align: 'center',
           minWidth: 150,
           maxWidth: 220
         },
         {
           prop: 'url',
-          label: 'Url',
+          label: i18n.t('Url'),
           align: 'center',
           minWidth: 150,
           maxWidth: 220
         },
         {
           prop: 'component',
-          label: 'Component',
+          label: i18n.t('Component'),
           align: 'center',
           minWidth: 180,
           maxWidth: 220
         },
         {
           prop: 'code',
-          label: 'Code',
+          label: i18n.t('Code'),
           align: 'center',
           minWidth: 150,
           maxWidth: 180
         },
         {
           prop: 'order',
-          label: 'Order',
+          label: i18n.t('Order'),
           align: 'center',
           minWidth: 150,
           maxWidth: 180
@@ -121,7 +122,7 @@ export default {
       operates: {
         list: [
           {
-            label: 'Edit',
+            label: i18n.t('Edit'),
             show: true,
             type: 'primary',
             method: row => {
@@ -129,7 +130,7 @@ export default {
             }
           },
           {
-            label: 'Delete',
+            label: i18n.t('Delete'),
             show: true,
             type: 'danger',
             method: row => {
