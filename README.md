@@ -18,7 +18,7 @@ You need to install [node](https://nodejs.org/) and [git](https://git-scm.com/) 
 Understanding and learning this knowledge in advance will greatly help the use of this project.
 
  <p align="center">
-  <img width="900" src="https://wpimg.wallstcn.com/a5894c1b-f6af-456e-82df-1151da0839bf.png">
+  <img width="900" src="assets/dolphin-ui.png">
 </p>
 
 ## Features
@@ -94,7 +94,7 @@ Understanding and learning this knowledge in advance will greatly help the use o
 git clone https://github.com/2637309949/dolphin.git
 
 # enter the project directory
-cd vue-element-admin
+cd dolphin-ui
 
 # install dependency
 npm install
