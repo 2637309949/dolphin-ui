@@ -1,0 +1,17 @@
+clone:
+  depth: 50
+  recursive: true
+  path: flarum-ui
+build:
+  image: docker.i2edu.net/golang:1.13
+  commands:
+    - export SASS_BINARY_SITE="https://npm.taobao.org/mirrors/node-sass"
+    - npm install --registry=http://registry.npm.taobao.org
+    - npm run build:prod --report
+publish:
+  docker:
+    registry: docker.qianqiusoft.com
+    email: develop@qianqiusoft.com
+    repo: docker.qianqiusoft.com/flarum-ui
+    tag:
+      - latest
