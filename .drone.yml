@@ -1,7 +1,7 @@
 clone:
   depth: 50
   recursive: true
-  path: flarum-ui
+  path: dolphin-ui
 build:
   image: docker.i2edu.net/golang:1.13
   commands:
