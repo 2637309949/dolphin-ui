@@ -8,6 +8,7 @@ build:
     - export SASS_BINARY_SITE="https://npm.taobao.org/mirrors/node-sass"
     - npm install --registry=http://registry.npm.taobao.org
     - npm run build:prod --report
+    - tar zcf flarum-ui.tar.gz dist/*
 publish:
   docker:
     registry: docker.qianqiusoft.com
