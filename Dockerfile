@@ -14,8 +14,8 @@ client_max_body_size 1024m;\
 underscores_in_headers on;\
 " > /etc/apk/repositories
 
-ADD dolphin-ui.tar.gz /usr/share/nginx/html/
-ADD dolphin-ui.tar.gz /usr/share/nginx/html/admin/
+ADD flarum-ui.tar.gz /usr/share/nginx/html/
+ADD flarum-ui.tar.gz /usr/share/nginx/html/admin/
 
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
