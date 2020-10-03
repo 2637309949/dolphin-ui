@@ -14,6 +14,7 @@ underscores_in_headers on;" > /etc/apk/repositories
 
 ADD flarum-ui.tar.gz /usr/share/nginx/html/
 ADD flarum-ui.tar.gz /usr/share/nginx/html/admin/
+RUN ls /usr/share/nginx/html/admin/
 RUN cp /usr/share/nginx/html/admin/static /usr/share/nginx/html/static/
 
 EXPOSE 80
