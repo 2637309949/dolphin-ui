@@ -50,40 +50,43 @@ service.interceptors.response.use(
     const { msg, code = 'Error' } = response.data
     if (code !== 200) {
       if (code === 403) {
-        Message({
+        return Message({
           message: 'Insufficient permissions, please contact your administrator',
           type: 'error',
           duration: 5 * 1000
+        }).then(() => {
+          return Promise.reject(new Error(msg))
         })
       } else if (code === 401) {
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+        return MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
+          return store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
         })
       } else {
-        Message({
+        return Message({
           message: msg,
           type: 'error',
           duration: 5 * 1000
+        }).then(() => {
+          return Promise.reject(new Error(msg))
         })
       }
-      return Promise.reject(new Error(msg))
     }
     return response.data
   },
   error => {
-    console.log(error)
     Message({
       message: error.message,
       type: 'error',
       duration: 5 * 1000
+    }).then(() => {
+      return Promise.reject(error)
     })
-    return Promise.reject(error)
   }
 )
 
