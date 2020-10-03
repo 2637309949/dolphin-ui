@@ -12,9 +12,9 @@ RUN mkdir -p /etc/nginx/conf.d/
 
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 
-ADD flarum.tar.gz /usr/share/nginx/html/
-ADD flarum.tar.gz /usr/share/nginx/html/admin/
-COPY /usr/share/nginx/html/admin/static /usr/share/nginx/html/static/
+ADD flarum-ui.tar.gz /usr/share/nginx/html/
+ADD flarum-ui.tar.gz /usr/share/nginx/html/admin/
+RUN cp /usr/share/nginx/html/admin/static /usr/share/nginx/html/static/
 
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
