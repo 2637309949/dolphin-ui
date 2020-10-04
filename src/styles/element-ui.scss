@@ -73,6 +73,11 @@
   }
 }
 
+// submenu__title
+.sidebar-container .el-submenu__title i {
+  color: #fff;
+}
+
 // fix date-picker ui bug in filter-item
 .el-range-editor.el-input__inner {
   display: inline-flex !important;
