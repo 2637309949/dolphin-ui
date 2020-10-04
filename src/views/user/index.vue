@@ -23,7 +23,7 @@
               </el-row>
             </el-header>
             <el-main class="table-main">
-              <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" />
+              <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" :selection-data.sync="selectionData" />
             </el-main>
           </el-container>
         </el-container>
@@ -165,7 +165,8 @@ export default {
       orgs: [],
       options: [],
       templs: [],
-      temp_items: []
+      temp_items: [],
+      selectionData: []
     }
   },
   computed: {
@@ -223,7 +224,7 @@ export default {
       this.$api.sysUserTemplateDetail.page({ page: 1, size: 100, 'temp_id': temp_id }).then(res => {
         this.temp_items = res.data.data
         var tempValue
-        if (this.temp.temp_value !== '' && this.temp.temp_value !== undefined) {
+        if (this.temp.temp_value) {
           tempValue = JSON.parse(this.temp.temp_value)
         } else {
           tempValue = []
@@ -354,14 +355,11 @@ export default {
       })
     },
     deleteBatch() {
-      const ids = []
-      this.$refs.qtable.multipleSelection.forEach(row => {
-        ids.push({ id: row.id })
-      })
+      const ids = this.selectionData.map(row => ({ id: row.id }))
       this.$confirm('确认批量删除选中数据吗？', '提示', {
         type: 'warning'
       }).then(() => {
-        this.$api.user.del(ids).then(res => {
+        this.$api.sysUser.batchDel(ids).then(res => {
           if (res.code === 200) {
             this.$refs.qtable.getData()
             this.$message({
