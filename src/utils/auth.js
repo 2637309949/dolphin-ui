@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-import * as cas from '@/api/cas'
 
 const TokenKey = 'access_token'
 
@@ -17,7 +16,7 @@ export function removeToken() {
 
 export function loginUrl(redirect, { state = '', $router, next } = {}) {
   if (window.Domain.auth_mode === 1) {
-    cas.url(redirect, state)
+    window.location.href = location.href = `${window.Domain.api_url}/api/sys/cas/url?redirect_uri=${encodeURIComponent(`${window.location.origin}/#${redirect}`)}&state=${state}`
   } else {
     if (next) {
       next(`/login?redirect=${redirect}&state=${state}`)
@@ -29,7 +28,7 @@ export function loginUrl(redirect, { state = '', $router, next } = {}) {
 
 export function logoutUrl(redirect, { state = '', $router, next } = {}) {
   if (window.Domain.auth_mode === 1) {
-    cas.logout(redirect, state)
+    window.location.href = `${window.Domain.api_url}/api/sys/cas/logout?redirect_uri=${encodeURIComponent(`${window.location.origin}/#${redirect}`)}&state=${state}`
   } else {
     if (next) {
       next(`/logout?redirect=${redirect}&state=${state}`)
