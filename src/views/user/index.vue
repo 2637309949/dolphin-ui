@@ -10,6 +10,18 @@
             <el-header height="82">
               <query ref="searchForm" :form-config="query" @onSubmit="search" />
             </el-header>
+            <el-header height="120">
+              <el-row :gutter="1" type="flex" justify="space-between" style="margin-bottom: 10px;">
+                <el-col :span="12">
+                  <b>用户列表</b>
+                </el-col>
+                <el-col :span="8" style="text-align: right;">
+                  <el-button type="primary" :size="size" icon="el-icon-plus" @click="create">添加</el-button>
+                  <el-button type="danger" :size="size" icon="el-icon-delete" @click="deleteBatch">批量删除</el-button>
+                  <el-button type="primary" :size="size" icon="el-icon-download" @click="create">导出</el-button>
+                </el-col>
+              </el-row>
+            </el-header>
             <el-main class="table-main">
               <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" />
             </el-main>
@@ -44,6 +56,9 @@
           <el-select v-model="temp.user_role" style="width: 100%" multiple placeholder="Please select the role">
             <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
+        </el-form-item>
+        <el-form-item label="Status:" prop="status">
+          <option-set :value.sync="temp.status" placeholder="Please input status" code="sys_user_status" />
         </el-form-item>
         <el-form-item label="Template:" prop="temp_id">
           <el-select v-model="temp.temp_id" style="width: 100%" placeholder="Please select the template" @change="tempChange">
@@ -86,6 +101,7 @@ import { mapGetters } from 'vuex'
 import { deepClone } from '@/utils/index'
 import checkPermission from '@/utils/permission'
 import Tree from '@/components/Tree'
+import OptionSet from '@/components/OptionSet'
 import Sheet from '@/components/Sheet'
 import Query from '@/components/Query'
 import { user } from './query'
@@ -96,7 +112,8 @@ export default {
   components: {
     Tree,
     Sheet,
-    Query
+    Query,
+    OptionSet
   },
   mixins: [user],
   data() {
@@ -131,6 +148,7 @@ export default {
       temp: {
         id: undefined,
         name: '',
+        status: 0,
         password: '',
         email: '',
         mobile: '',
@@ -202,7 +220,7 @@ export default {
       this.temp_items[dataIndex].value.push(obj)
     },
     getTempDetail(temp_id) {
-      this.$api.sysUserTemplate.page({ page: 1, size: 100, 'temp_id': temp_id }).then(res => {
+      this.$api.sysUserTemplateDetail.page({ page: 1, size: 100, 'temp_id': temp_id }).then(res => {
         this.temp_items = res.data.data
         var tempValue
         if (this.temp.temp_value !== '' && this.temp.temp_value !== undefined) {
@@ -234,7 +252,7 @@ export default {
     FindUserTempl() {
       this.$api.sysUserTemplate.page({ page: 1, size: 100 }).then(res => {
         if (res.code === 200) {
-          this.templs = res.data.content
+          this.templs = res.data.data
         }
       })
     },
@@ -261,7 +279,7 @@ export default {
       this.$refs['tempForm'].validate((valid) => {
         if (valid) {
           this.temp.temp_value = JSON.stringify(this.temp_items)
-          this.$api.sysUser.create(this.temp).then((res) => {
+          this.$api.sysUser.add(this.temp).then((res) => {
             if (res.code === 200) {
               this.$message({
                 message: '创建成功',
