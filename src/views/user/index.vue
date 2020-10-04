@@ -148,15 +148,15 @@ export default {
       temp: {
         id: undefined,
         name: '',
-        status: 0,
+        status: 1,
         password: '',
         email: '',
         mobile: '',
         type: 0,
         org_id: '',
+        user_role: [],
         temp_value: '',
-        temp_id: '',
-        user_role: []
+        temp_id: ''
       },
       dataLoading: false,
       dialogStatus: '',
@@ -262,8 +262,7 @@ export default {
       })
     },
     getRoles() {
-      const pageData = { 'page': 1, 'rows': 100 }
-      this.$api.sysRole.page(pageData).then(res => {
+      this.$api.sysRole.page({ 'page': 1, 'rows': 100 }).then(res => {
         this.options = res.data.data
       })
     },
@@ -324,8 +323,10 @@ export default {
     updateData() {
       this.$refs['tempForm'].validate((valid) => {
         if (valid) {
-          this.temp.temp_value = JSON.stringify(this.temp_items)
-          this.$api.sysUser.update(this.temp).then((res) => {
+          const temp = deepClone(this.temp)
+          temp.temp_value = JSON.stringify(this.temp_items)
+          temp.user_role = (temp.user_role || []).join(',')
+          this.$api.sysUser.update(temp).then((res) => {
             if (res.code === 200) {
               this.$message({
                 message: '修改成功',
@@ -341,8 +342,7 @@ export default {
       this.$confirm('确认删除这个用户吗？', '提示', {
         type: 'warning'
       }).then(() => {
-        const data = [{ id: row.id }]
-        this.$api.sysUser.del(data).then((res) => {
+        this.$api.sysUser.del({ id: row.id }).then((res) => {
           if (res.code === 200) {
             this.$refs.qtable.getData()
             this.$message({
@@ -402,7 +402,7 @@ export default {
       this.$nextTick(() => {
         this.$refs['tempForm'].clearValidate()
         this.temp = deepClone(row)
-        if (row.user_role === '') {
+        if (!row.user_role) {
           this.temp.user_role = []
         } else {
           this.temp.user_role = row.user_role.split(',')
