@@ -1,192 +1,205 @@
 <template>
-  <el-form ref="form" :form="form" :size="size" label-suffix=":" @submit.native.prevent>
-    <el-row :gutter="10">
-      <el-col v-for="item in formConfigs.formConfigA" :key="item.name" :span="item.span || 18">
-        <el-form-item :rules="item.rules" :label="item.label" :prop="item.name" :label-width="item.label ? '100px' : ''">
-          <el-input
-            v-if="item.type === 'input' || item.type === ''"
-            v-model="form[item.name]"
-            :style="item.style"
-            :disabled="item.disabled"
-            clearable
-            :prefix-icon="item.prefixIcon"
-            :suffix-icon="item.suffixIcon"
-            :show-word-limit="item.showWordLimit"
-            :type="item.inputType"
-            :rows="item.rows"
-            :autosize="item.autosize"
-            :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
-            @keyup.enter.native="onSubmit"
-          />
-          <qselect
-            v-else-if="item.type === 'select'"
-            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-            :code="item.code"
-            :remote-api="item.remoteApi"
-            :filters="item.filters"
-            :value.sync="form[item.name]"
-            :option-field="item.remoteApi?{ keyField: 'id', labelField: 'name', valueField: 'id' }:{ keyField: 'value', labelField: 'text', valueField: 'value' }"
-            :remote="!!item.remote"
-            :search-filed="item.searchFiled"
-            :remote-data-query="item.remoteDataQuery"
-          />
-          <qcascader
-            v-else-if="item.type === 'cascader'"
-            :api="item.api"
-            :data-query="item.dataquery"
-            :multiple="item.multiple"
-            :check-strictly="item.checkStrictly"
-            :value.sync="form[item.name]"
-          />
-          <el-date-picker
-            v-else-if="item.type === 'date'"
-            v-model="form[item.name]"
-            :type="item.dateType"
-            :style="item.style"
-            :align="item.align"
-            range-separator="至"
-            :start-placeholder="item.startPlaceholder"
-            :end-placeholder="item.endPlaceholder"
-            :disabled="item.disabled"
-            :unlink-panels="item.unlinkPanels || true"
-            :value-format="item.valueFormat"
-            :default-value="item.defaultValue"
-            :default-time="item.defaultTime"
-            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-            :picker-options="item.pickerOptions"
-          />
-          <el-time-select
-            v-else-if="item.type === 'time'"
-            v-model="form[item.name]"
-            :style="item.style"
-            :disabled="item.disabled"
-            :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
-            :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-          />
-          <div v-else-if="item.type === 'minmax'" class="minmax-box">
-            <el-input-number
-              v-model="form[item.name][0]"
-              :step="item.step || 1"
-              :min="item.min || 0"
-              :controls="false"
-              class="minmax-input"
-              :precision="item.precision"
-              :disabled="item.disabled"
-              :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
-            />
-            <div class="division-line">-</div>
-            <el-input-number
-              v-model="form[item.name][1]"
-              :step="item.step || 1"
-              :min="item.min || 0"
-              class="minmax-input"
-              :controls="false"
-              :precision="item.precision"
-              :disabled="item.disabled"
-              :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
-            />
-          </div>
-        </el-form-item>
-      </el-col>
-      <el-col :offset="selfAdaption" :span="6" style="text-align: right;">
-        <el-button v-if="folding" :size="size" @click="show = !show">
-          {{ show ? "折叠" : "展开" }}
-        </el-button>
-        <el-button type="primary" :size="size" icon="el-icon-search" @click.prevent="onSubmit">{{ $t('common.search') }}</el-button>
-        <el-button :size="size" icon="el-icon-brush" @click="resetForm()">{{ $t('common.reset') }}</el-button>
-        <!-- <el-button :loading="isExporting" type="primary" :size="size" @click="onExport">{{ $t('common.export') }}</el-button> -->
-      </el-col>
-    </el-row>
-    <transition name="el-zoom-in-top">
-      <el-row v-show="show" :gutter="10">
-        <el-col v-for="item in formConfigs.formConfigB" :key="item.name" :span="item.span || 24">
-          <el-form-item :rules="item.rules" :label="item.label" :prop="item.name" :label-width="item.label ? '100px' : ''">
-            <el-input
-              v-if="(item.type || input) === 'input'"
-              v-model="form[item.name]"
-              :style="item.style"
-              :disabled="item.disabled"
-              :prefix-icon="item.prefixIcon"
-              :suffix-icon="item.suffixIcon"
-              :show-word-limit="item.showWordLimit"
-              :type="item.inputType"
-              :rows="item.rows"
-              :autosize="item.autosize"
-              :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
-              clearable
-              @keyup.enter.native="onSubmit"
-            />
-            <option-set
-              v-else-if="item.type === 'select'"
-              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-              :code="item.code"
-              :remote-api="item.remoteApi"
-              :filters="item.filters"
-              :value.sync="form[item.name]"
-              :option-field="item.remoteApi?{ keyField: 'id', labelField: 'name', valueField: 'id' }:{ keyField: 'value', labelField: 'text', valueField: 'value' }"
-              :remote="!!item.remote"
-              :search-filed="item.searchFiled"
-              :remote-data-query="item.remoteDataQuery"
-            />
-            <cascader
-              v-else-if="item.type === 'cascader'"
-              :api="item.api"
-              :data-query="item.dataquery"
-              :multiple="item.multiple"
-              :check-strictly="item.checkStrictly"
-              :value.sync="form[item.name]"
-            />
-            <el-date-picker
-              v-else-if="item.type === 'date'"
-              v-model="form[item.name]"
-              :type="item.dateType"
-              :style="item.style"
-              range-separator="至"
-              :start-placeholder="item.startPlaceholder"
-              :end-placeholder="item.endPlaceholder"
-              :disabled="item.disabled"
-              :unlink-panels="item.unlinkPanels || true"
-              :value-format="item.valueFormat"
-              :default-value="item.defaultValue"
-              :default-time="item.defaultTime"
-              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-            />
-            <el-time-select
-              v-else-if="item.type === 'time'"
-              v-model="form[item.name]"
-              :style="item.style"
-              :disabled="item.disabled"
-              :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
-              :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
-            />
-            <div v-else-if="item.type === 'minmax'" class="minmax-box">
-              <el-input-number
-                v-model="form[item.name][0]"
-                :step="item.step || 1"
-                :min="item.min || ''"
-                :controls="false"
-                class="minmax-input"
-                :precision="item.precision"
+  <el-container>
+    <el-header height="82">
+      <el-form ref="form" :form="form" :size="size" label-suffix=":" @submit.native.prevent>
+        <el-row :gutter="10">
+          <el-col v-for="item in formConfigs.formConfigA" :key="item.name" :span="item.span || 18">
+            <el-form-item :rules="item.rules" :label="item.label" :prop="item.name" :label-width="item.label ? '100px' : ''">
+              <el-input
+                v-if="item.type === 'input' || item.type === ''"
+                v-model="form[item.name]"
+                :style="item.style"
                 :disabled="item.disabled"
-                :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
+                clearable
+                :prefix-icon="item.prefixIcon"
+                :suffix-icon="item.suffixIcon"
+                :show-word-limit="item.showWordLimit"
+                :type="item.inputType"
+                :rows="item.rows"
+                :autosize="item.autosize"
+                :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
+                @keyup.enter.native="onSubmit"
               />
-              <div class="division-line">-</div>
-              <el-input-number
-                v-model="form[item.name][1]"
-                :step="item.step || 1"
-                :min="item.min || ''"
-                class="minmax-input"
-                :controls="false"
-                :precision="item.precision"
+              <qselect
+                v-else-if="item.type === 'select'"
+                :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+                :code="item.code"
+                :remote-api="item.remoteApi"
+                :filters="item.filters"
+                :value.sync="form[item.name]"
+                :option-field="item.remoteApi?{ keyField: 'id', labelField: 'name', valueField: 'id' }:{ keyField: 'value', labelField: 'text', valueField: 'value' }"
+                :remote="!!item.remote"
+                :search-filed="item.searchFiled"
+                :remote-data-query="item.remoteDataQuery"
+              />
+              <qcascader
+                v-else-if="item.type === 'cascader'"
+                :api="item.api"
+                :data-query="item.dataquery"
+                :multiple="item.multiple"
+                :check-strictly="item.checkStrictly"
+                :value.sync="form[item.name]"
+              />
+              <el-date-picker
+                v-else-if="item.type === 'date'"
+                v-model="form[item.name]"
+                :type="item.dateType"
+                :style="item.style"
+                :align="item.align"
+                range-separator="至"
+                :start-placeholder="item.startPlaceholder"
+                :end-placeholder="item.endPlaceholder"
                 :disabled="item.disabled"
-                :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
+                :unlink-panels="item.unlinkPanels || true"
+                :value-format="item.valueFormat"
+                :default-value="item.defaultValue"
+                :default-time="item.defaultTime"
+                :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+                :picker-options="item.pickerOptions"
               />
-            </div>
-          </el-form-item>
+              <el-time-select
+                v-else-if="item.type === 'time'"
+                v-model="form[item.name]"
+                :style="item.style"
+                :disabled="item.disabled"
+                :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
+                :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+              />
+              <div v-else-if="item.type === 'minmax'" class="minmax-box">
+                <el-input-number
+                  v-model="form[item.name][0]"
+                  :step="item.step || 1"
+                  :min="item.min || 0"
+                  :controls="false"
+                  class="minmax-input"
+                  :precision="item.precision"
+                  :disabled="item.disabled"
+                  :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
+                />
+                <div class="division-line">-</div>
+                <el-input-number
+                  v-model="form[item.name][1]"
+                  :step="item.step || 1"
+                  :min="item.min || 0"
+                  class="minmax-input"
+                  :controls="false"
+                  :precision="item.precision"
+                  :disabled="item.disabled"
+                  :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
+                />
+              </div>
+            </el-form-item>
+          </el-col>
+          <el-col :offset="selfAdaption" :span="6" style="text-align: right;">
+            <el-button v-if="folding" :size="size" @click="show = !show">
+              {{ show ? "折叠" : "展开" }}
+            </el-button>
+            <el-button type="primary" :size="size" icon="el-icon-search" @click.prevent="onSubmit">{{ $t('common.search') }}</el-button>
+            <el-button :size="size" icon="el-icon-brush" @click="resetForm()">{{ $t('common.reset') }}</el-button>
+            <!-- <el-button :loading="isExporting" type="primary" :size="size" @click="onExport">{{ $t('common.export') }}</el-button> -->
+          </el-col>
+        </el-row>
+        <transition name="el-zoom-in-top">
+          <el-row v-show="show" :gutter="10">
+            <el-col v-for="item in formConfigs.formConfigB" :key="item.name" :span="item.span || 24">
+              <el-form-item :rules="item.rules" :label="item.label" :prop="item.name" :label-width="item.label ? '100px' : ''">
+                <el-input
+                  v-if="(item.type || input) === 'input'"
+                  v-model="form[item.name]"
+                  :style="item.style"
+                  :disabled="item.disabled"
+                  :prefix-icon="item.prefixIcon"
+                  :suffix-icon="item.suffixIcon"
+                  :show-word-limit="item.showWordLimit"
+                  :type="item.inputType"
+                  :rows="item.rows"
+                  :autosize="item.autosize"
+                  :placeholder="`${$t('common.pleaseInput')} ${item.placeholder}`"
+                  clearable
+                  @keyup.enter.native="onSubmit"
+                />
+                <option-set
+                  v-else-if="item.type === 'select'"
+                  :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+                  :code="item.code"
+                  :remote-api="item.remoteApi"
+                  :filters="item.filters"
+                  :value.sync="form[item.name]"
+                  :option-field="item.remoteApi?{ keyField: 'id', labelField: 'name', valueField: 'id' }:{ keyField: 'value', labelField: 'text', valueField: 'value' }"
+                  :remote="!!item.remote"
+                  :search-filed="item.searchFiled"
+                  :remote-data-query="item.remoteDataQuery"
+                />
+                <cascader
+                  v-else-if="item.type === 'cascader'"
+                  :api="item.api"
+                  :data-query="item.dataquery"
+                  :multiple="item.multiple"
+                  :check-strictly="item.checkStrictly"
+                  :value.sync="form[item.name]"
+                />
+                <el-date-picker
+                  v-else-if="item.type === 'date'"
+                  v-model="form[item.name]"
+                  :type="item.dateType"
+                  :style="item.style"
+                  range-separator="至"
+                  :start-placeholder="item.startPlaceholder"
+                  :end-placeholder="item.endPlaceholder"
+                  :disabled="item.disabled"
+                  :unlink-panels="item.unlinkPanels || true"
+                  :value-format="item.valueFormat"
+                  :default-value="item.defaultValue"
+                  :default-time="item.defaultTime"
+                  :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+                />
+                <el-time-select
+                  v-else-if="item.type === 'time'"
+                  v-model="form[item.name]"
+                  :style="item.style"
+                  :disabled="item.disabled"
+                  :picker-options="item.pickerOptions?item.pickerOptions:{ start: '08:00', step: '00:05', end: '22:00' }"
+                  :placeholder="`${$t('common.pleaseChoice')} ${item.placeholder}`"
+                />
+                <div v-else-if="item.type === 'minmax'" class="minmax-box">
+                  <el-input-number
+                    v-model="form[item.name][0]"
+                    :step="item.step || 1"
+                    :min="item.min || ''"
+                    :controls="false"
+                    class="minmax-input"
+                    :precision="item.precision"
+                    :disabled="item.disabled"
+                    :placeholder="`${$t('common.pleaseInput')} ${item.minPlaceholder}`"
+                  />
+                  <div class="division-line">-</div>
+                  <el-input-number
+                    v-model="form[item.name][1]"
+                    :step="item.step || 1"
+                    :min="item.min || ''"
+                    class="minmax-input"
+                    :controls="false"
+                    :precision="item.precision"
+                    :disabled="item.disabled"
+                    :placeholder="`${$t('common.pleaseInput')} ${item.maxPlaceholder}`"
+                  />
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </transition>
+      </el-form>
+    </el-header>
+    <el-header height="120">
+      <el-row :gutter="1" type="flex" justify="space-between">
+        <el-col :offset="12" :span="20" style="text-align: right;">
+          <el-button type="primary" :size="size" icon="el-icon-plus" @click="onCreate">添加</el-button>
+          <el-button type="danger" :size="size" icon="el-icon-delete" @click="onDeleteBatch">批量删除</el-button>
+          <el-button type="primary" :size="size" icon="el-icon-download" @click="onExport">{{ $t('common.export') }}</el-button>
         </el-col>
       </el-row>
-    </transition>
-  </el-form>
+    </el-header>
+  </el-container>
 </template>
 
 <script>
@@ -291,6 +304,12 @@ export default {
         }
       }
       this.$emit('onSubmit', this.form)
+    },
+    onCreate() {
+      this.$emit('onCreate')
+    },
+    onDeleteBatch() {
+      this.$emit('onDeleteBatch')
     },
     deepCopy(data) {
       if (typeof data !== 'object') {

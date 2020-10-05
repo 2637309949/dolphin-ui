@@ -1,35 +1,20 @@
 <template>
   <el-container>
     <el-main class="page-main">
-      <el-card>
+      <el-container>
+        <el-aside class="tree-aside" :width="treeWidth">
+          <tree title="Org" :fetch="this.$api.sysOrg.tree" :data-query="treeQuery" :call-back="getTreeDataCallBack" :click="treeClick" />
+        </el-aside>
         <el-container>
-          <el-aside class="tree-aside" :width="treeWidth">
-            <tree title="Org" :fetch="this.$api.sysOrg.tree" :data-query="treeQuery" :call-back="getTreeDataCallBack" :click="treeClick" />
-          </el-aside>
-          <el-container>
-            <el-header height="82">
-              <query ref="searchForm" :form-config="query" @onSubmit="search" />
-            </el-header>
-            <el-header height="120">
-              <el-row :gutter="1" type="flex" justify="space-between" style="margin-bottom: 10px;">
-                <el-col :span="12">
-                  <b>用户列表</b>
-                </el-col>
-                <el-col :span="8" style="text-align: right;">
-                  <el-button type="primary" :size="size" icon="el-icon-plus" @click="create">添加</el-button>
-                  <el-button type="danger" :size="size" icon="el-icon-delete" @click="deleteBatch">批量删除</el-button>
-                  <el-button type="primary" :size="size" icon="el-icon-download" @click="create">导出</el-button>
-                </el-col>
-              </el-row>
-            </el-header>
-            <el-main class="table-main">
-              <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" :selection-data.sync="selectionData" />
-            </el-main>
-          </el-container>
+          <el-header style="margin-bottom: 10px;">
+            <query ref="searchForm" :form-config="query" @onSubmit="search" @onCreate="create" @onDeleteBatch="deleteBatch" />
+          </el-header>
+          <el-main class="table-main">
+            <sheet ref="qtable" :api="this.$api.sysUser.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" header-name="searchForm" :selection-data.sync="selectionData" />
+          </el-main>
         </el-container>
-      </el-card>
+      </el-container>
     </el-main>
-
     <el-dialog :title="dialogStatus==='create'?$t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="50%" @close="dialogClose">
       <el-form ref="tempForm" :size="size" :rules="rules" :model="temp" label-width="85px">
         <el-form-item label="Name:" prop="name">
@@ -356,19 +341,21 @@ export default {
     },
     deleteBatch() {
       const ids = this.selectionData.map(row => ({ id: row.id }))
-      this.$confirm('确认批量删除选中数据吗？', '提示', {
-        type: 'warning'
-      }).then(() => {
-        this.$api.sysUser.batchDel(ids).then(res => {
-          if (res.code === 200) {
-            this.$refs.qtable.getData()
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-          }
-        })
-      }).catch(() => {})
+      if (ids.length > 0) {
+        this.$confirm('确认批量删除选中数据吗？', '提示', {
+          type: 'warning'
+        }).then(() => {
+          this.$api.sysUser.batchDel(ids).then(res => {
+            if (res.code === 200) {
+              this.$refs.qtable.getData()
+              this.$message({
+                message: '删除成功',
+                type: 'success'
+              })
+            }
+          })
+        }).catch(() => {})
+      }
     },
     search(obj) {
       return this.$refs.qtable.getData(obj)

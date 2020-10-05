@@ -1,18 +1,15 @@
 <template>
   <el-container>
     <el-main class="page-main">
-      <el-card>
-        <el-container>
-          <el-header height="120">
-            <query ref="searchForm" :form-config="query" @onSubmit="search" />
-          </el-header>
-          <el-main>
-            <sheet ref="qtable" :api="this.$api.sysTracker.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
-          </el-main>
-        </el-container>
-      </el-card>
+      <el-container>
+        <el-header style="margin-bottom: 10px;">
+          <query ref="searchForm" :form-config="query" @onSubmit="search" />
+        </el-header>
+        <el-main>
+          <sheet ref="qtable" :api="this.$api.sysTracker.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
+        </el-main>
+      </el-container>
     </el-main>
-
     <el-dialog :title="$t('tracker.detail')" :visible.sync="dialogVisible" width="70%">
       <el-form ref="form" label-width="120px">
         <el-form-item :label="$t('tracker.ipAddress').concat(':')" class="notice-input" label-width="120px">

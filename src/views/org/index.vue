@@ -1,21 +1,19 @@
 <template>
   <el-container>
     <el-main class="page-main">
-      <el-card>
+      <el-container>
+        <el-aside :width="treeWidth">
+          <tree title="Org" :fetch="this.$api.sysOrg.tree" :query="nodeQuery" :call-back="getTreeDataCallBack" :click="nodeClick" />
+        </el-aside>
         <el-container>
-          <el-aside :width="treeWidth">
-            <tree title="Org" :fetch="this.$api.sysOrg.tree" :query="nodeQuery" :call-back="getTreeDataCallBack" :click="nodeClick" />
-          </el-aside>
-          <el-container>
-            <el-header height="120">
-              <query ref="searchForm" :form-config="query" @onSubmit="search" />
-            </el-header>
-            <el-main class="table-main">
-              <sheet ref="qtable" :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
-            </el-main>
-          </el-container>
+          <el-header style="margin-bottom: 10px;">
+            <query ref="searchForm" :form-config="query" @onSubmit="search" />
+          </el-header>
+          <el-main class="table-main">
+            <sheet ref="qtable" :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
+          </el-main>
         </el-container>
-      </el-card>
+      </el-container>
     </el-main>
     <el-dialog :title="dialogStatus==='create'? $t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="40%" @close="dialogClose">
       <el-form ref="dataForm" :size="size" :rules="rules" :model="temp" label-width="85px">
