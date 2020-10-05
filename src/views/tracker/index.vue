@@ -97,7 +97,7 @@ export default {
           {
             label: '详情',
             show: true,
-            type: 'primary',
+            type: 'text',
             method: row => {
               this.detail(row)
             }

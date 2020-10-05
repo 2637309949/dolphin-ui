@@ -7,10 +7,10 @@
         </el-aside>
         <el-container>
           <el-header style="margin-bottom: 10px;">
-            <query ref="searchForm" :form-config="query" @onSubmit="search" />
+            <query ref="searchForm" :form-config="query" @onSubmit="search" @onCreate="create" @onDeleteBatch="deleteBatch" />
           </el-header>
           <el-main class="table-main">
-            <sheet ref="qtable" :api="this.$api.sysMenu.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
+            <sheet ref="qtable" :api="this.$api.sysMenu.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" :selection-data.sync="selectionData" />
           </el-main>
         </el-container>
       </el-container>
@@ -118,24 +118,10 @@ export default {
       ],
       operates: {
         list: [
-          {
-            label: 'Edit',
-            show: true,
-            type: 'primary',
-            method: row => {
-              this.edit(row)
-            }
-          },
-          {
-            label: 'Delete',
-            show: true,
-            type: 'danger',
-            method: row => {
-              this.deleteData(row)
-            }
-          }
+          { label: 'Edit', show: true, type: 'text', method: (row) => { this.edit(row) } },
+          { label: 'Del', show: true, type: 'text', method: (row) => { this.deleteData(row) } }
         ],
-        width: 160,
+        width: 100,
         fixed: 'right'
       },
       dataQuery: {
@@ -172,6 +158,7 @@ export default {
         value: 'id',
         key: 'id'
       },
+      selectionData: [],
       dataLoading: false,
       dialogStatus: '',
       dialogVisible: false,
@@ -256,22 +243,21 @@ export default {
       })
     },
     deleteBatch() {
-      const ids = []
-      this.$refs.qtable.selectionData.forEach(row => {
-        ids.push({ id: row.id })
-      })
-      this.$confirm('Are you sure to delete selected data in batch ?', 'Prompt', {
-        type: 'warning'
-      }).then(() => {
-        this.$api.sysMenu.batchDel(ids).then(res => {
-          this.$message({
-            message: 'successfully deleted',
-            type: 'success'
+      const ids = this.selectionData.map(row => ({ id: row.id }))
+      if (ids.length > 0) {
+        this.$confirm('Are you sure to delete selected data in batch ?', 'Prompt', {
+          type: 'warning'
+        }).then(() => {
+          this.$api.sysMenu.batchDel(ids).then(res => {
+            this.$message({
+              message: 'successfully deleted',
+              type: 'success'
+            })
+            this.$refs.qtable.getData()
+            this.$store.dispatch('permission/resetRoutes')
           })
-          this.$refs.qtable.getData()
-          this.$store.dispatch('permission/resetRoutes')
-        })
-      })
+        }).catch(() => {})
+      }
     },
     dialogClose() {},
     create() {

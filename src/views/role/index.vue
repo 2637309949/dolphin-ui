@@ -3,10 +3,10 @@
     <el-main class="page-main">
       <el-container>
         <el-header style="margin-bottom: 10px;">
-          <query ref="searchForm" :form-config="query" @onSubmit="search" />
+          <query ref="searchForm" :form-config="query" @onSubmit="search" @onCreate="create" @onDeleteBatch="deleteBatch" />
         </el-header>
         <el-main>
-          <sheet ref="qtable" :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
+          <sheet ref="qtable" :api="this.$api.sysRole.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" :selection-data.sync="selectionData" />
         </el-main>
       </el-container>
     </el-main>
@@ -116,24 +116,11 @@ export default {
       ],
       operates: {
         list: [
-          {
-            label: i18n.t('Edit'),
-            show: true,
-            type: 'primary',
-            method: row => {
-              this.edit(row)
-            }
-          },
-          {
-            label: i18n.t('Delete'),
-            show: true,
-            type: 'danger',
-            method: row => {
-              this.deleteData(row)
-            }
-          }
+          { label: 'Edit', show: true, type: 'text', method: (row) => { this.edit(row) } },
+          { label: 'Del', show: true, type: 'text', method: (row) => { this.deleteData(row) } }
         ],
-        width: 150
+        width: 100,
+        fixed: 'right'
       },
       dataQuery: {
         page: 1,
@@ -165,6 +152,7 @@ export default {
         value: 'id',
         key: 'id'
       },
+      selectionData: [],
       dataLoading: false,
       dialogStatus: '',
       dialogVisible: false
@@ -311,26 +299,23 @@ export default {
             type: 'success'
           })
         })
-      })
-        .catch(() => {})
+      }).catch(() => {})
     },
     deleteBatch() {
-      const ids = []
-      this.$refs.qtable.multipleSelection.forEach(row => {
-        ids.push({ id: row.id })
-      })
-      this.$confirm('确认批量删除选中数据吗？', '提示', {
-        type: 'warning'
-      }).then(() => {
-        this.$api.system.DelRole(ids).then(res => {
-          this.$refs.qtable.getData()
-          this.$message({
-            message: '删除成功',
-            type: 'success'
+      const ids = this.selectionData.map(row => ({ id: row.id }))
+      if (ids.length > 0) {
+        this.$confirm('确认批量删除选中数据吗？', '提示', {
+          type: 'warning'
+        }).then(() => {
+          this.$api.sysRole.batchDel(ids).then(res => {
+            this.$refs.qtable.getData()
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
           })
-        })
-      })
-        .catch(() => {})
+        }).catch(() => {})
+      }
     },
     search(obj) {
       this.$refs.qtable.getData(obj)

@@ -119,24 +119,10 @@ export default {
       ],
       operates: {
         list: [
-          {
-            label: i18n.t('Edit'),
-            show: true,
-            type: 'primary',
-            method: row => {
-              this.edit(row)
-            }
-          },
-          {
-            label: i18n.t('Delete'),
-            show: true,
-            type: 'danger',
-            method: row => {
-              this.deleteData(row)
-            }
-          }
+          { label: 'Edit', show: true, type: 'text', method: (row) => { this.edit(row) } },
+          { label: 'Del', show: true, type: 'text', method: (row) => { this.deleteData(row) } }
         ],
-        width: 160,
+        width: 100,
         fixed: 'right'
       },
       dataQuery: {
