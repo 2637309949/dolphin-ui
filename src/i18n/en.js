@@ -27,6 +27,7 @@ export default {
     'Scheduling': 'Scheduling',
     'Attachment': 'Attachment',
     'Tracker': 'Tracker',
+    'Table': 'Table',
     'Documentation': 'Documentation',
     'Guide': 'Guide',
     'Permission': 'Permission',

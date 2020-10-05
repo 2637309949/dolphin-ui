@@ -27,6 +27,7 @@ export default {
     'Scheduling': '调度',
     'Attachment': '附件',
     'Tracker': '日志',
+    'Table': '模型',
     'Documentation': '文档',
     'Guide': '引导页',
     'Permission': '权限测试页',

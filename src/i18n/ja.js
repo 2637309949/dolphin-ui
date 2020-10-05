@@ -27,6 +27,7 @@ export default {
     'Scheduling': 'スケジューラー',
     'Attachment': '別添',
     'Tracker': 'ログ',
+    'Table': 'テーブル',
     'Documentation': 'ドキュメント',
     'Guide': 'ガイド',
     'Permission': '権限',

@@ -27,6 +27,7 @@ export default {
     'Scheduling': 'Planificador',
     'Attachment': 'Adjunto archivo',
     'Tracker': 'Iniciar sesión',
+    'Table': 'mesa',
     'Documentation': 'Documentación',
     'Guide': 'Guía',
     'Permission': 'Permisos',
