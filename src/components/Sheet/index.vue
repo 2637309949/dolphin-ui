@@ -67,10 +67,7 @@
                 @click.native.prevent="btn.method(scope.row)"
               >{{ btn.label }}</el-button>
             </template>
-            <div
-              v-if="operates.dropdown != undefined && operates.dropdown.filter(_x=>_x.show === true).length > 0"
-              style="display: inline-block;"
-            >
+            <div v-if="operates.dropdown != undefined && operates.dropdown.filter(_x=>_x.show === true).length > 0" style="display: inline-block;">
               <el-dropdown style="font-size: 12px" size="mini">
                 <el-button type="primary" size="mini">More</el-button>
                 <el-dropdown-menu slot="dropdown">
@@ -182,11 +179,8 @@ export default {
   },
   computed: {
     tableMaxHeight() {
-      if (
-        this.$store === undefined ||
-        this.$store.getters.pageTableHeaderHeight === 0
-      ) { return null }
-      const height = 240 + 20 + this.$store.getters.pageTableHeaderHeight
+      if (this.$store === undefined || this.$store.getters.pageTableHeaderHeight === 0) { return null }
+      const height = 220 + this.$store.getters.pageTableHeaderHeight
       return 'calc(100vh - ' + height + 'px)'
     }
   },

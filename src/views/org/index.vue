@@ -7,10 +7,10 @@
         </el-aside>
         <el-container>
           <el-header style="margin-bottom: 10px;">
-            <query ref="searchForm" :form-config="query" @onSubmit="search" />
+            <query ref="searchForm" :form-config="query" @onSubmit="search" @onCreate="create" @onDeleteBatch="deleteBatch" />
           </el-header>
           <el-main class="table-main">
-            <sheet ref="qtable" :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" />
+            <sheet ref="qtable" :api="this.$api.sysOrg.page" :columns="tableColumns" :data-query="dataQuery" :operates="operates" :float-type="'right'" :select-type="'selection'" :selection-data.sync="selectionData" />
           </el-main>
         </el-container>
       </el-container>
@@ -179,7 +179,8 @@ export default {
         { id: 0, name: 'Dir' },
         { id: 1, name: 'Menu' },
         { id: 2, name: 'Button' }
-      ]
+      ],
+      selectionData: []
     }
   },
   computed: {
@@ -253,10 +254,7 @@ export default {
       })
     },
     deleteBatch() {
-      const ids = []
-      this.$refs.qtable.selectionData.forEach(row => {
-        ids.push({ id: row.id })
-      })
+      const ids = this.selectionData.map(row => ({ id: row.id }))
       this.$confirm('Are you sure to delete selected data in batch ?', 'Prompt', {
         type: 'warning'
       }).then(() => {
