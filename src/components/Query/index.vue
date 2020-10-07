@@ -96,7 +96,6 @@
             </el-button>
             <el-button type="primary" :size="size" icon="el-icon-search" @click.prevent="onSubmit">{{ $t('common.search') }}</el-button>
             <el-button :size="size" icon="el-icon-brush" @click="resetForm()">{{ $t('common.reset') }}</el-button>
-            <!-- <el-button :loading="isExporting" type="primary" :size="size" @click="onExport">{{ $t('common.export') }}</el-button> -->
           </el-col>
         </el-row>
         <transition name="el-zoom-in-top">

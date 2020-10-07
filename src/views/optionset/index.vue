@@ -10,7 +10,6 @@
         </el-main>
       </el-container>
     </el-main>
-
     <el-dialog :title="dialogStatus==='create'? $t('common.create'):$t('common.update')" :visible.sync="dialogVisible" width="40%" @close="dialogClose">
       <el-form ref="temp" :size="size" :rules="rules" :model="temp" label-width="120px">
         <el-form-item label="Name:" prop="name">
@@ -133,7 +132,7 @@ export default {
       this.$refs['temp'].validate(valid => {
         if (valid) {
           this.temp.value = JSON.stringify(this.maps)
-          this.$api.system.AddOptionset(this.temp).then(res => {
+          this.$api.sysOptionset.add(this.temp).then(res => {
             this.dialogVisible = false
             this.$message({
               message: 'Created successfully',
@@ -163,7 +162,7 @@ export default {
       this.$confirm('Confirm deletion?', 'Tips', {
         type: 'warning'
       }).then(() => {
-        this.$api.system.DelOptionset([{ id: row.id }]).then(res => {
+        this.$api.sysOptionset.del({ id: row.id }).then(res => {
           this.$refs.qtable.getData()
           this.$message({
             message: 'Removal successful',
