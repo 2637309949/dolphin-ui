@@ -18,8 +18,8 @@
         <el-form-item label="编码:" prop="code">
           <el-input v-model="temp.code" :size="size" placeholder="请输入编码" />
         </el-form-item>
-        <el-form-item label="后台首页:" prop="index_component">
-          <el-input v-model="temp.index_component" :size="size" placeholder="请输入后台首页" />
+        <el-form-item label="后台首页:" prop="admin_index">
+          <el-input v-model="temp.admin_index" :size="size" placeholder="请输入后台首页" />
         </el-form-item>
         <el-form-item label="APP首页:" prop="app_index">
           <el-input v-model="temp.app_index" :size="size" placeholder="请输入APP首页" />
@@ -131,7 +131,7 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
-        index_component: [
+        admin_index: [
           { required: true, message: '请输入后台组件', trigger: 'blur' }
         ],
         app_index: [
@@ -142,7 +142,7 @@ export default {
         id: undefined,
         name: '',
         code: '',
-        index_component: '',
+        admin_index: '',
         app_index: ''
       },
       mode: 'transfer',
@@ -201,14 +201,10 @@ export default {
       return array
     },
     changeMenu(fromData, toData, obj) {
-      let menu_ids = []
-      toData.forEach(item => {
-        const submenus = this.treeToArray(item, 'id')
-        menu_ids = menu_ids.concat(submenus)
-      })
-      this.menu = menu_ids
-      this.$api.system
-        .AddRoleMenu({ role_id: this.role_id, menu_ids: menu_ids })
+      const menuIds = toData.map(x => this.treeToArray(x, 'id')).reduce((acc, curr) => acc.concat(curr), [])
+      const roleMenus = menuIds.map(x => ({ role_id: this.role_id, menu_id: x }))
+      this.$api.sysRoleMenu
+        .batchAdd(roleMenus)
         .then(res => {
           this.getRoleMenuTree(this.role_id)
         })
@@ -270,14 +266,10 @@ export default {
       })
     },
     updateData() {
-      if (this.menu.length === 0) {
-        this.$message.error('最少选择一个菜单，加入到已选择项中')
-        return
-      }
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          const postData = Object.assign({}, this.temp)
-          this.$api.system.UpdateRole(postData).then(res => {
+          const payload = Object.assign({}, this.temp)
+          this.$api.sysRole.update(payload).then(res => {
             this.dialogVisible = false
             this.$message({
               message: '修改成功',
