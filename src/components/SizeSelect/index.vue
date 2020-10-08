@@ -5,8 +5,7 @@
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size===item.value" :command="item.value">
-        {{
-          item.label }}
+        {{ item.label }}
       </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -17,7 +16,7 @@ export default {
   data() {
     return {
       sizeOptions: [
-        { label: 'Default', value: 'default' },
+        { label: 'Default', value: 'mini' },
         { label: 'Medium', value: 'medium' },
         { label: 'Small', value: 'small' },
         { label: 'Mini', value: 'mini' }
