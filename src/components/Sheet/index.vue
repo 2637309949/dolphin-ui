@@ -180,7 +180,7 @@ export default {
   computed: {
     tableMaxHeight() {
       if (this.$store === undefined || this.$store.getters.pageTableHeaderHeight === 0) { return null }
-      const height = 220 + this.$store.getters.pageTableHeaderHeight
+      const height = 210 + this.$store.getters.pageTableHeaderHeight
       return 'calc(100vh - ' + height + 'px)'
     }
   },
