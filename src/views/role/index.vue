@@ -18,6 +18,9 @@
         <el-form-item label="编码:" prop="code">
           <el-input v-model="temp.code" :size="size" placeholder="请输入编码" />
         </el-form-item>
+        <el-form-item label="状态:" prop="status">
+          <option-set :value.sync="temp.status" placeholder="请选择状态" code="sys_role_status" />
+        </el-form-item>
         <el-form-item label="后台首页:" prop="admin_index">
           <el-input v-model="temp.admin_index" :size="size" placeholder="请输入后台首页" />
         </el-form-item>
@@ -74,6 +77,7 @@ import { mapGetters } from 'vuex'
 import { deepClone } from '@/utils/index'
 import Sheet from '@/components/Sheet'
 import treeTransfer from 'el-tree-transfer'
+import OptionSet from '@/components/OptionSet'
 import Query from '@/components/Query'
 import { role } from './query'
 import i18n from '@/i18n'
@@ -83,7 +87,8 @@ export default {
   components: {
     Sheet,
     treeTransfer,
-    Query
+    Query,
+    OptionSet
   },
   mixins: [role],
   data() {
@@ -112,6 +117,13 @@ export default {
           align: 'center',
           minWidth: 150,
           maxWidth: 180
+        },
+        {
+          prop: 'status',
+          label: i18n.t('Status'),
+          align: 'center',
+          minWidth: 150,
+          maxWidth: 180
         }
       ],
       operates: {
@@ -131,6 +143,7 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
+        status: [{ required: true, message: '请选择状态', trigger: 'blur' }],
         admin_index: [
           { required: true, message: '请输入后台组件', trigger: 'blur' }
         ],
@@ -247,7 +260,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          this.$api.system.AddRole(this.temp).then(res => {
+          this.$api.sysRole.add(this.temp).then(res => {
             this.dialogVisible = false
             if (res.code === 200) {
               this.$message({

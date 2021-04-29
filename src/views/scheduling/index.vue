@@ -250,7 +250,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          this.$api.system.AddRole(this.temp).then(res => {
+          this.$api.sysRole.add(this.temp).then(res => {
             this.dialogVisible = false
             if (res.code === 200) {
               this.$message({
