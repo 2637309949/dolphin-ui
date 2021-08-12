@@ -3,7 +3,7 @@ export const menu = {
     return {
       query: {
         export: {
-          name: 'menus.xlsx',
+          name: 'menus.zip',
           size: 1000
         },
         items: [

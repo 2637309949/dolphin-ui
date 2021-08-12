@@ -5,7 +5,7 @@ export const scheduling = {
     return {
       query: {
         export: {
-          name: 'roles.xlsx',
+          name: 'roles.zip',
           size: 1000
         },
         items: [

@@ -5,7 +5,7 @@ export const org = {
     return {
       query: {
         export: {
-          name: 'orgs.xlsx',
+          name: 'orgs.zip',
           size: 1000
         },
         items: [

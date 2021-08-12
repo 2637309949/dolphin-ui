@@ -1,0 +1,12 @@
+--2021-06-12 22:35:43--  http://140.82.121.3/
+Connecting to 140.82.121.3:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://140.82.121.3/ [following]
+--2021-06-12 22:35:43--  https://140.82.121.3/
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Connecting to 140.82.121.3:443... failed: Connection timed out.
+Retrying.
+
+--2021-06-12 22:37:54--  (try: 2)  https://140.82.121.3/
+Connecting to 140.82.121.3:443... connected.
+The certificate's owner does not match hostname ‘140.82.121.3’

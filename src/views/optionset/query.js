@@ -3,7 +3,7 @@ export const optionset = {
     return {
       query: {
         export: {
-          name: 'optionsets.xlsx',
+          name: 'optionsets.zip',
           size: 1000
         },
         items: [

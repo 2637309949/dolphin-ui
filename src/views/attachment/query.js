@@ -3,7 +3,7 @@ export const attachment = {
     return {
       query: {
         export: {
-          name: 'attachments.xlsx',
+          name: 'attachments.zip',
           size: 1000
         },
         items: [

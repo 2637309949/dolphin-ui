@@ -5,7 +5,7 @@ export const tracker = {
     return {
       query: {
         export: {
-          name: 'trackers.xlsx',
+          name: 'trackers.zip',
           size: 1000
         },
         items: [

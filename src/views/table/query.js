@@ -5,7 +5,7 @@ export const table = {
     return {
       query: {
         export: {
-          name: 'tables.xlsx',
+          name: 'tables.zip',
           size: 1000
         },
         items: [

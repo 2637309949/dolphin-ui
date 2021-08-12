@@ -6,13 +6,6 @@
         <h3 class="title">Login</h3>
       </div>
 
-      <el-form-item prop="domain">
-        <span class="svg-container">
-          <svg-icon icon-class="domain" />
-        </span>
-        <el-input ref="domain" v-model="loginForm.domain" placeholder="Domain" name="domain" type="text" tabindex="1" autocomplete="on" />
-      </el-form-item>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -77,7 +70,7 @@ export default {
     }
     return {
       loginForm: {
-        domain: 'localhost',
+        domain: window.Domain && window.Domain.name,
         username: 'admin',
         password: 'admin'
       },

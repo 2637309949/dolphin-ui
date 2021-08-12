@@ -5,7 +5,7 @@ export const user = {
     return {
       query: {
         export: {
-          name: 'users.xlsx',
+          name: 'users.zip',
           size: 1000
         },
         items: [
