@@ -5,7 +5,7 @@ window.Domain = {
     "contact_email": null,
     "contact_mobile": null,
     "login_url": "localhost",
-    "api_url": "http://172.16.10.191:8082",
+    "api_url": "http://172.20.10.3:8082",
     "static_url": null,
     "theme": "default",
     "auth_mode": 1

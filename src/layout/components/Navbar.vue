@@ -67,11 +67,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      if (window.Domain.auth_mode === 1) {
-        logoutUrl(this.$route.fullPath, { $router: this.$router })
-      } else {
-        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-      }
+      logoutUrl(this.$route.fullPath, { $router: this.$router })
     }
   }
 }
