@@ -243,12 +243,12 @@ export default {
       })
     },
     getOrgs() {
-      this.$api.sysOrg.page({ 'page': 1, 'rows': 100 }).then(res => {
+      this.$api.sysOrg.page({ 'page': 1, 'size': 100 }).then(res => {
         this.orgs = res.data.data
       })
     },
     getRoles() {
-      this.$api.sysRole.page({ 'page': 1, 'rows': 100 }).then(res => {
+      this.$api.sysRole.page({ 'page': 1, 'size': 100 }).then(res => {
         this.options = res.data.data
       })
     },

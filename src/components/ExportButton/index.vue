@@ -78,7 +78,7 @@ export default {
     getExportQuery() {
       const query = this.deepCopy(this.dataQuery)
       query.page = 1
-      query.rows = this.rows
+      query.size = this.size
       query.__export__ = true
       query.__name__ = this.name
       query.__columns__ = JSON.stringify(this.getExportColumns())

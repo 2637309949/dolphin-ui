@@ -339,7 +339,7 @@ export default {
       }
       const form = this.deepCopy(this.form)
       form.page = 1
-      form.rows = this.formConfig.export.rows
+      form.size = this.formConfig.export.size
       form.__export__ = true
       form.__name__ = this.formConfig.export.name
       this.$emit('onSubmit', form)
